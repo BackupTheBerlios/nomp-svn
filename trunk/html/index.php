@@ -90,6 +90,9 @@ page here are some of the features:
       </ul>
 </i>
 </td></tr></table>
+<BR>
+NOMP is an open-source project.  If you would like to help with this project, report bugs or request features you can do so from the
+<a href="http://developer.berlios.de/projects/nomp/">NOMP open-source development project page.</a>
 
 </span></p>
 <!-- </desc> -->
@@ -158,6 +161,11 @@ page here are some of the features:
 					<h2>Downloads</h2>
 					<ul>
 					<li><a href="NzbOMaticPlusSetup.exe">Binary - Download (Version 0.47)</a>
+					</ul>
+
+					<h2>Developers</h2>
+					<ul>
+					<li><a href="http://developer.berlios.de/projects/nomp/">Source</a>
 					</ul>
 
 					<H2>Information</H2>
