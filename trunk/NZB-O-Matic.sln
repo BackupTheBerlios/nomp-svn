@@ -1,0 +1,42 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NZB-O-Matic", "NZB-O-Matic.csproj", "{661E3DB1-706A-4863-9A75-378EBAC8DFAE}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loader", "Loader\Loader.csproj", "{0B52C7A5-F666-42C6-B661-701C3CBA910D}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface\Interface.csproj", "{59788107-F4A4-4D40-B595-E0EE0F0F8F48}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{661E3DB1-706A-4863-9A75-378EBAC8DFAE}.Debug.ActiveCfg = Debug|.NET
+		{661E3DB1-706A-4863-9A75-378EBAC8DFAE}.Debug.Build.0 = Debug|.NET
+		{661E3DB1-706A-4863-9A75-378EBAC8DFAE}.Release.ActiveCfg = Release|.NET
+		{661E3DB1-706A-4863-9A75-378EBAC8DFAE}.Release.Build.0 = Release|.NET
+		{0B52C7A5-F666-42C6-B661-701C3CBA910D}.Debug.ActiveCfg = Debug|.NET
+		{0B52C7A5-F666-42C6-B661-701C3CBA910D}.Debug.Build.0 = Debug|.NET
+		{0B52C7A5-F666-42C6-B661-701C3CBA910D}.Release.ActiveCfg = Release|.NET
+		{0B52C7A5-F666-42C6-B661-701C3CBA910D}.Release.Build.0 = Release|.NET
+		{59788107-F4A4-4D40-B595-E0EE0F0F8F48}.Debug.ActiveCfg = Debug|.NET
+		{59788107-F4A4-4D40-B595-E0EE0F0F8F48}.Debug.Build.0 = Debug|.NET
+		{59788107-F4A4-4D40-B595-E0EE0F0F8F48}.Release.ActiveCfg = Release|.NET
+		{59788107-F4A4-4D40-B595-E0EE0F0F8F48}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(SolutionItems) = postSolution
+		changelog.txt = changelog.txt
+		license.htm = license.htm
+		TODO.txt = TODO.txt
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
