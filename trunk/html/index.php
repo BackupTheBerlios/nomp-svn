@@ -103,6 +103,14 @@ NOMP is an open-source project.  If you would like to help with this project, re
 <p>
 <span class="header">Change Log</span>
 <p>
+<span class="logheader">Version 0.48</span>
+<ul class="changelog">
+	<li>* Fixed the file association so it will work when installed in a folder with a space
+	<li>+ Added a button to set all incompletes back to queued
+	(li>+ Added a feature to reconnect if user was disconnected from being idle and user imports a new nzb file
+</ul></p>
+
+<p>
 <span class="logheader">Version 0.47</span>
 <ul class="changelog">
 	<li>* Fixed the '%z' so that it supports 'msgidlist_uid' files from newzbin as well
@@ -160,7 +168,7 @@ NOMP is an open-source project.  If you would like to help with this project, re
 
 					<h2>Downloads</h2>
 					<ul>
-					<li><a href="NzbOMaticPlusSetup.exe">Binary - Download (Version 0.47)</a>
+					<li><a href="NzbOMaticPlusSetup.exe">Binary - Download (Version 0.48)</a>
 					</ul>
 
 					<h2>Developers</h2>
@@ -173,7 +181,7 @@ NOMP is an open-source project.  If you would like to help with this project, re
 					<ul>
 					<!-- <header> -->
 					<li>Original Release: February 10, 2005
-					<li>Last Updated: March 14, 2005
+					<li>Last Updated: April 23, 2005
 					<li>Required: <a href="http://msdn.microsoft.com/netframework/downloads/framework1_1/">1.1 .NET Framework</a>
 					</ul>
 

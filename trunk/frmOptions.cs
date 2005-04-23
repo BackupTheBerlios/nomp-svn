@@ -226,11 +226,11 @@ namespace NZB_O_Matic
 			this.Label_Delete = new System.Windows.Forms.Label();
 			this.Check_Delete = new System.Windows.Forms.CheckBox();
 			this.panel6 = new System.Windows.Forms.Panel();
+			this.Check_Monitor = new System.Windows.Forms.CheckBox();
+			this.label3 = new System.Windows.Forms.Label();
 			this.Button_NZB = new System.Windows.Forms.Button();
 			this.Monitor_folder = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
-			this.Check_Monitor = new System.Windows.Forms.CheckBox();
-			this.label3 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.Number_Idle)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.Number_Delay)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.Numer_Attempts)).BeginInit();
@@ -627,6 +627,24 @@ namespace NZB_O_Matic
 			this.panel6.Size = new System.Drawing.Size(336, 56);
 			this.panel6.TabIndex = 25;
 			// 
+			// Check_Monitor
+			// 
+			this.Check_Monitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.Check_Monitor.Location = new System.Drawing.Point(144, 8);
+			this.Check_Monitor.Name = "Check_Monitor";
+			this.Check_Monitor.Size = new System.Drawing.Size(16, 16);
+			this.Check_Monitor.TabIndex = 10;
+			// 
+			// label3
+			// 
+			this.label3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.label3.Location = new System.Drawing.Point(8, 8);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(128, 16);
+			this.label3.TabIndex = 9;
+			this.label3.Text = "Monitor NZB Folder:";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
 			// Button_NZB
 			// 
 			this.Button_NZB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -661,24 +679,6 @@ namespace NZB_O_Matic
 			this.label2.TabIndex = 2;
 			this.label2.Text = "NZB path:";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
-			// 
-			// Check_Monitor
-			// 
-			this.Check_Monitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.Check_Monitor.Location = new System.Drawing.Point(144, 8);
-			this.Check_Monitor.Name = "Check_Monitor";
-			this.Check_Monitor.Size = new System.Drawing.Size(16, 16);
-			this.Check_Monitor.TabIndex = 10;
-			// 
-			// label3
-			// 
-			this.label3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.label3.Location = new System.Drawing.Point(8, 8);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(128, 16);
-			this.label3.TabIndex = 9;
-			this.label3.Text = "Monitor NZB Folder:";
-			this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// frmOptions
 			// 

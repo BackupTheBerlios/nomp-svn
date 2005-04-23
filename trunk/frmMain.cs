@@ -60,6 +60,8 @@ namespace NZB_O_Matic
 		private const int WM_SETTINGCHANGE = 0x001A;
 		private const int SPI_SETNONCLIENTMETRICS = 0x002A;
 		private System.Windows.Forms.MenuItem Menu_Main_Options_Prefernces;
+		private bool disconnectedOnIdle;
+		private bool queueContainsNewItems;
 
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.MenuItem Context_Exit;
@@ -169,6 +171,7 @@ namespace NZB_O_Matic
 		private System.Windows.Forms.TabControl TabControl_Main;
 		private System.Windows.Forms.MenuItem Menu_Main_SaveWindowStatus;
 		private System.Windows.Forms.MenuItem Menu_Main_Options_ClearCache;
+		private System.Windows.Forms.Button setIncompleteToQueuedButton;
 		private ServerManager m_ServerManager;
 		#endregion 
 
@@ -290,6 +293,7 @@ namespace NZB_O_Matic
 			this.Menu_Main_Edit_DecodeArticle = new System.Windows.Forms.MenuItem();
 			this.Menu_Main_Options = new System.Windows.Forms.MenuItem();
 			this.Menu_Main_Options_Reset = new System.Windows.Forms.MenuItem();
+			this.Menu_Main_Options_ClearCache = new System.Windows.Forms.MenuItem();
 			this.Menu_Main_Options_Exit = new System.Windows.Forms.MenuItem();
 			this.Menu_Main_SaveWindowStatus = new System.Windows.Forms.MenuItem();
 			this.Menu_Main_Options_Divider1 = new System.Windows.Forms.MenuItem();
@@ -353,7 +357,7 @@ namespace NZB_O_Matic
 			this.Button_ClearLog = new System.Windows.Forms.Button();
 			this.Button_SaveLog = new System.Windows.Forms.Button();
 			this.TabControl_Main = new System.Windows.Forms.TabControl();
-			this.Menu_Main_Options_ClearCache = new System.Windows.Forms.MenuItem();
+			this.setIncompleteToQueuedButton = new System.Windows.Forms.Button();
 			this.Panel_Connections.SuspendLayout();
 			this.TabPage_Servers.SuspendLayout();
 			this.Panel_ServerButtons.SuspendLayout();
@@ -530,6 +534,12 @@ namespace NZB_O_Matic
 			this.Menu_Main_Options_Reset.Index = 0;
 			this.Menu_Main_Options_Reset.Text = "Reset Download Total";
 			this.Menu_Main_Options_Reset.Click += new System.EventHandler(this.Menu_Main_Options_Reset_Click);
+			// 
+			// Menu_Main_Options_ClearCache
+			// 
+			this.Menu_Main_Options_ClearCache.Index = 1;
+			this.Menu_Main_Options_ClearCache.Text = "Empty Cache";
+			this.Menu_Main_Options_ClearCache.Click += new System.EventHandler(this.Menu_Main_Options_ClearCache_Click);
 			// 
 			// Menu_Main_Options_Exit
 			// 
@@ -901,6 +911,7 @@ namespace NZB_O_Matic
 			// 
 			// Panel_QueueButtons
 			// 
+			this.Panel_QueueButtons.Controls.Add(this.setIncompleteToQueuedButton);
 			this.Panel_QueueButtons.Controls.Add(this.Button_Bottom);
 			this.Panel_QueueButtons.Controls.Add(this.Button_Down);
 			this.Panel_QueueButtons.Controls.Add(this.Button_Up);
@@ -919,7 +930,7 @@ namespace NZB_O_Matic
 			this.Button_Bottom.BackColor = System.Drawing.SystemColors.Control;
 			this.Button_Bottom.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_Bottom.Image = ((System.Drawing.Image)(resources.GetObject("Button_Bottom.Image")));
-			this.Button_Bottom.Location = new System.Drawing.Point(320, 4);
+			this.Button_Bottom.Location = new System.Drawing.Point(432, 4);
 			this.Button_Bottom.Name = "Button_Bottom";
 			this.Button_Bottom.Size = new System.Drawing.Size(23, 23);
 			this.Button_Bottom.TabIndex = 8;
@@ -930,7 +941,7 @@ namespace NZB_O_Matic
 			this.Button_Down.BackColor = System.Drawing.SystemColors.Control;
 			this.Button_Down.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_Down.Image = ((System.Drawing.Image)(resources.GetObject("Button_Down.Image")));
-			this.Button_Down.Location = new System.Drawing.Point(296, 4);
+			this.Button_Down.Location = new System.Drawing.Point(408, 4);
 			this.Button_Down.Name = "Button_Down";
 			this.Button_Down.Size = new System.Drawing.Size(23, 23);
 			this.Button_Down.TabIndex = 7;
@@ -941,7 +952,7 @@ namespace NZB_O_Matic
 			this.Button_Up.BackColor = System.Drawing.SystemColors.Control;
 			this.Button_Up.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_Up.Image = ((System.Drawing.Image)(resources.GetObject("Button_Up.Image")));
-			this.Button_Up.Location = new System.Drawing.Point(272, 4);
+			this.Button_Up.Location = new System.Drawing.Point(384, 4);
 			this.Button_Up.Name = "Button_Up";
 			this.Button_Up.Size = new System.Drawing.Size(23, 23);
 			this.Button_Up.TabIndex = 6;
@@ -952,7 +963,7 @@ namespace NZB_O_Matic
 			this.Button_Top.BackColor = System.Drawing.SystemColors.Control;
 			this.Button_Top.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_Top.Image = ((System.Drawing.Image)(resources.GetObject("Button_Top.Image")));
-			this.Button_Top.Location = new System.Drawing.Point(248, 4);
+			this.Button_Top.Location = new System.Drawing.Point(360, 4);
 			this.Button_Top.Name = "Button_Top";
 			this.Button_Top.Size = new System.Drawing.Size(23, 23);
 			this.Button_Top.TabIndex = 5;
@@ -1054,11 +1065,16 @@ namespace NZB_O_Matic
 			this.TabControl_Main.TabIndex = 13;
 			this.TabControl_Main.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
 			// 
-			// Menu_Main_Options_ClearCache
+			// setIncompleteToQueuedButton
 			// 
-			this.Menu_Main_Options_ClearCache.Index = 1;
-			this.Menu_Main_Options_ClearCache.Text = "Empty Cache";
-			this.Menu_Main_Options_ClearCache.Click += new System.EventHandler(this.Menu_Main_Options_ClearCache_Click);
+			this.setIncompleteToQueuedButton.BackColor = System.Drawing.SystemColors.Control;
+			this.setIncompleteToQueuedButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.setIncompleteToQueuedButton.Location = new System.Drawing.Point(248, 4);
+			this.setIncompleteToQueuedButton.Name = "setIncompleteToQueuedButton";
+			this.setIncompleteToQueuedButton.Size = new System.Drawing.Size(104, 23);
+			this.setIncompleteToQueuedButton.TabIndex = 9;
+			this.setIncompleteToQueuedButton.Text = "Retry Incompletes";
+			this.setIncompleteToQueuedButton.Click += new System.EventHandler(this.setIncompleteToQueuedButton_Click);
 			// 
 			// frmMain
 			// 
@@ -1300,7 +1316,7 @@ namespace NZB_O_Matic
 
 		private void Menu_Main_File_Disconnect_Click(object sender, System.EventArgs e)
 		{
-			Disconnect();
+			Disconnect(false);
 		}
 
 		private void Menu_Main_File_ImportNZB_Click(object sender, System.EventArgs e)
@@ -1324,6 +1340,12 @@ namespace NZB_O_Matic
 		#endregion
 
 		#region Button Clicks
+		
+		private void setIncompleteToQueuedButton_Click(object sender, System.EventArgs e)
+		{
+			this.SetIncompleteToQueued();
+		}
+
 		private void Button_ImportNZB_Click(object sender, System.EventArgs e)
 		{
 			OpenImportNZB();
@@ -1336,7 +1358,7 @@ namespace NZB_O_Matic
 
 		private void Button_Disconnect_Click(object sender, System.EventArgs e)
 		{
-			Disconnect();
+			Disconnect(false);
 		}
 		private void Button_Prune_Click(object sender, System.EventArgs e)
 		{
@@ -1473,6 +1495,22 @@ namespace NZB_O_Matic
 		#endregion 
 
 		#region Private Methods
+		private void SetIncompleteToQueued()
+		{
+			lock (lvArticles)
+			{
+				foreach (ListViewItem lvItem in lvArticles.SelectedItems)
+				{
+					Article article = (Article)lvItem.Tag;
+					if (article.Status == ArticleStatus.Incomplete)
+					{
+						article.Status = ArticleStatus.Queued;
+						m_ServerManager.RebuildQueue();
+					}
+				}
+			}
+		}
+
 		private void UpdateArticles()
 		{
 			this.lvArticles.BeginUpdate();
@@ -1929,8 +1967,9 @@ namespace NZB_O_Matic
 			this.lvArticles.EndUpdate();
 		}
 
-		private void ImportNZB( string filename)
+		private void ImportNZB(string filename)
 		{
+			queueContainsNewItems = true;
 			m_ImportNZB_Filename = filename;
 
 			frmProgress frm = new frmProgress();
@@ -1973,8 +2012,10 @@ namespace NZB_O_Matic
 			m_ServerManager.Connect();
 		}
 
-		private void Disconnect()
+		private void Disconnect(bool idle)
 		{
+			disconnectedOnIdle = idle;
+
 			if( !Global.m_Connected)
 				return;
 
@@ -2246,7 +2287,7 @@ namespace NZB_O_Matic
 
 		private void Context_Disconnect_Click(object sender, System.EventArgs e)
 		{
-			Disconnect();
+			Disconnect(false);
 		}
 
 		private void lvArticles_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
@@ -2365,7 +2406,7 @@ namespace NZB_O_Matic
 				{
 					idlecount += this.Update_Timer.Interval;
 					if(idlecount >= (Global.m_Options.IdleDelay * 60 * 1000))
-						Disconnect();
+						Disconnect(true);
 				}
 			}
 			else
@@ -2428,6 +2469,14 @@ namespace NZB_O_Matic
 
 			//make sure variable doesn't get too big
 			count = count % 12000;
+
+			if (!Global.m_Connected 
+				&& disconnectedOnIdle
+				&& queueContainsNewItems)
+			{
+				queueContainsNewItems = false;
+				this.Connect();
+			}
 		}
 
 		private void ResetConnectionStatus()
@@ -2529,7 +2578,7 @@ namespace NZB_O_Matic
 
 					//set NZB-O-Matic data type
 					Registry.ClassesRoot.CreateSubKey("NZB-O-Matic").SetValue("", "NZB Document");
-					Registry.ClassesRoot.CreateSubKey("NZB-O-Matic").CreateSubKey("shell").CreateSubKey("open").CreateSubKey("command").SetValue("", Application.ExecutablePath + " \"%1\"");
+					Registry.ClassesRoot.CreateSubKey("NZB-O-Matic").CreateSubKey("shell").CreateSubKey("open").CreateSubKey("command").SetValue("", "\"" + Application.ExecutablePath + "\" \"%1\"");
 					Registry.ClassesRoot.CreateSubKey("NZB-O-Matic").CreateSubKey("DefaultIcon").SetValue("", icon);
 
 					//set .nzb file extension data
@@ -2541,7 +2590,7 @@ namespace NZB_O_Matic
 					key = Registry.ClassesRoot.CreateSubKey("Applications").CreateSubKey("NZB-O-Matic.exe");
 					key.SetValue("", "NZB-O-Matic");
 					key.SetValue("NZB-O-Matic.exe", "NZB-O-Matic.exe");
-					key.CreateSubKey("shell").CreateSubKey("open").CreateSubKey("command").SetValue("", Application.ExecutablePath + " \"%1\"");
+					key.CreateSubKey("shell").CreateSubKey("open").CreateSubKey("command").SetValue("", "\"" + Application.ExecutablePath + "\" \"%1\"");
 					key.CreateSubKey("DefaultIcon").SetValue("", icon);
 				}
 				else
