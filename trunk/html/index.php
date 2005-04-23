@@ -107,7 +107,7 @@ NOMP is an open-source project.  If you would like to help with this project, re
 <ul class="changelog">
 	<li>* Fixed the file association so it will work when installed in a folder with a space
 	<li>+ Added a button to set all incompletes back to queued
-	(li>+ Added a feature to reconnect if user was disconnected from being idle and user imports a new nzb file
+	<li>+ Added a feature to reconnect if user was disconnected from being idle and user imports a new nzb file
 </ul></p>
 
 <p>
