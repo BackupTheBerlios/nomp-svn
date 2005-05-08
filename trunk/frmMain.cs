@@ -1112,12 +1112,12 @@ namespace NZB_O_Matic
 		#region Log Methods
 		public static void LogWriteInfo(object toLog)
 		{
-			LogWriteLine("[i] - " + DateTime.Now.ToLocalTime() + " - " + toLog.ToString());
+			LogWriteLine("[i] - " + System.DateTime.Now.ToString() + " - " + toLog.ToString());
 		}
 
 		public static void LogWriteError(object toLog)
 		{
-			LogWriteLine("[e] - " + DateTime.Now.ToLocalTime() + " - " + toLog.ToString());
+			LogWriteLine("[e] - " + System.DateTime.Now.ToString() + " - " + toLog.ToString());
 		}
 
 		private static void LogWriteLine(object toLog)
