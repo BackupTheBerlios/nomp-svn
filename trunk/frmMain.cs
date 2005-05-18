@@ -172,6 +172,7 @@ namespace NZB_O_Matic
 		private System.Windows.Forms.MenuItem Menu_Main_SaveWindowStatus;
 		private System.Windows.Forms.MenuItem Menu_Main_Options_ClearCache;
 		private System.Windows.Forms.Button setIncompleteToQueuedButton;
+		private System.Windows.Forms.Button ButtonDecodeIncomplete;
 		private ServerManager m_ServerManager;
 		#endregion 
 
@@ -344,6 +345,7 @@ namespace NZB_O_Matic
 			this.chDate = new System.Windows.Forms.ColumnHeader();
 			this.chGroups = new System.Windows.Forms.ColumnHeader();
 			this.Panel_QueueButtons = new System.Windows.Forms.Panel();
+			this.setIncompleteToQueuedButton = new System.Windows.Forms.Button();
 			this.Button_Bottom = new System.Windows.Forms.Button();
 			this.Button_Down = new System.Windows.Forms.Button();
 			this.Button_Up = new System.Windows.Forms.Button();
@@ -357,7 +359,7 @@ namespace NZB_O_Matic
 			this.Button_ClearLog = new System.Windows.Forms.Button();
 			this.Button_SaveLog = new System.Windows.Forms.Button();
 			this.TabControl_Main = new System.Windows.Forms.TabControl();
-			this.setIncompleteToQueuedButton = new System.Windows.Forms.Button();
+			this.ButtonDecodeIncomplete = new System.Windows.Forms.Button();
 			this.Panel_Connections.SuspendLayout();
 			this.TabPage_Servers.SuspendLayout();
 			this.Panel_ServerButtons.SuspendLayout();
@@ -822,7 +824,7 @@ namespace NZB_O_Matic
 			this.Button_EditServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_EditServer.Location = new System.Drawing.Point(88, 4);
 			this.Button_EditServer.Name = "Button_EditServer";
-			this.Button_EditServer.TabIndex = 7;
+			this.Button_EditServer.TabIndex = 6;
 			this.Button_EditServer.Text = "Edit Server";
 			this.Button_EditServer.Click += new System.EventHandler(this.Button_EditServer_Click);
 			// 
@@ -832,7 +834,7 @@ namespace NZB_O_Matic
 			this.Button_DeleteServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_DeleteServer.Location = new System.Drawing.Point(168, 4);
 			this.Button_DeleteServer.Name = "Button_DeleteServer";
-			this.Button_DeleteServer.TabIndex = 6;
+			this.Button_DeleteServer.TabIndex = 7;
 			this.Button_DeleteServer.Text = "Delete";
 			this.Button_DeleteServer.Click += new System.EventHandler(this.Button_DeleteServer_Click);
 			// 
@@ -911,6 +913,7 @@ namespace NZB_O_Matic
 			// 
 			// Panel_QueueButtons
 			// 
+			this.Panel_QueueButtons.Controls.Add(this.ButtonDecodeIncomplete);
 			this.Panel_QueueButtons.Controls.Add(this.setIncompleteToQueuedButton);
 			this.Panel_QueueButtons.Controls.Add(this.Button_Bottom);
 			this.Panel_QueueButtons.Controls.Add(this.Button_Down);
@@ -925,15 +928,26 @@ namespace NZB_O_Matic
 			this.Panel_QueueButtons.Size = new System.Drawing.Size(534, 32);
 			this.Panel_QueueButtons.TabIndex = 1;
 			// 
+			// setIncompleteToQueuedButton
+			// 
+			this.setIncompleteToQueuedButton.BackColor = System.Drawing.SystemColors.Control;
+			this.setIncompleteToQueuedButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.setIncompleteToQueuedButton.Location = new System.Drawing.Point(248, 4);
+			this.setIncompleteToQueuedButton.Name = "setIncompleteToQueuedButton";
+			this.setIncompleteToQueuedButton.Size = new System.Drawing.Size(104, 23);
+			this.setIncompleteToQueuedButton.TabIndex = 5;
+			this.setIncompleteToQueuedButton.Text = "Retry Incompletes";
+			this.setIncompleteToQueuedButton.Click += new System.EventHandler(this.setIncompleteToQueuedButton_Click);
+			// 
 			// Button_Bottom
 			// 
 			this.Button_Bottom.BackColor = System.Drawing.SystemColors.Control;
 			this.Button_Bottom.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_Bottom.Image = ((System.Drawing.Image)(resources.GetObject("Button_Bottom.Image")));
-			this.Button_Bottom.Location = new System.Drawing.Point(432, 4);
+			this.Button_Bottom.Location = new System.Drawing.Point(504, 4);
 			this.Button_Bottom.Name = "Button_Bottom";
 			this.Button_Bottom.Size = new System.Drawing.Size(23, 23);
-			this.Button_Bottom.TabIndex = 8;
+			this.Button_Bottom.TabIndex = 10;
 			this.Button_Bottom.Click += new System.EventHandler(this.Context_MoveBottom_Click);
 			// 
 			// Button_Down
@@ -941,10 +955,10 @@ namespace NZB_O_Matic
 			this.Button_Down.BackColor = System.Drawing.SystemColors.Control;
 			this.Button_Down.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_Down.Image = ((System.Drawing.Image)(resources.GetObject("Button_Down.Image")));
-			this.Button_Down.Location = new System.Drawing.Point(408, 4);
+			this.Button_Down.Location = new System.Drawing.Point(480, 4);
 			this.Button_Down.Name = "Button_Down";
 			this.Button_Down.Size = new System.Drawing.Size(23, 23);
-			this.Button_Down.TabIndex = 7;
+			this.Button_Down.TabIndex = 9;
 			this.Button_Down.Click += new System.EventHandler(this.Context_MoveDown_Click);
 			// 
 			// Button_Up
@@ -952,10 +966,10 @@ namespace NZB_O_Matic
 			this.Button_Up.BackColor = System.Drawing.SystemColors.Control;
 			this.Button_Up.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_Up.Image = ((System.Drawing.Image)(resources.GetObject("Button_Up.Image")));
-			this.Button_Up.Location = new System.Drawing.Point(384, 4);
+			this.Button_Up.Location = new System.Drawing.Point(456, 4);
 			this.Button_Up.Name = "Button_Up";
 			this.Button_Up.Size = new System.Drawing.Size(23, 23);
-			this.Button_Up.TabIndex = 6;
+			this.Button_Up.TabIndex = 8;
 			this.Button_Up.Click += new System.EventHandler(this.Context_MoveUp_Click);
 			// 
 			// Button_Top
@@ -963,10 +977,10 @@ namespace NZB_O_Matic
 			this.Button_Top.BackColor = System.Drawing.SystemColors.Control;
 			this.Button_Top.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_Top.Image = ((System.Drawing.Image)(resources.GetObject("Button_Top.Image")));
-			this.Button_Top.Location = new System.Drawing.Point(360, 4);
+			this.Button_Top.Location = new System.Drawing.Point(432, 4);
 			this.Button_Top.Name = "Button_Top";
 			this.Button_Top.Size = new System.Drawing.Size(23, 23);
-			this.Button_Top.TabIndex = 5;
+			this.Button_Top.TabIndex = 7;
 			this.Button_Top.Click += new System.EventHandler(this.Context_MoveTop_Click);
 			// 
 			// Button_Prune
@@ -975,7 +989,7 @@ namespace NZB_O_Matic
 			this.Button_Prune.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_Prune.Location = new System.Drawing.Point(88, 4);
 			this.Button_Prune.Name = "Button_Prune";
-			this.Button_Prune.TabIndex = 4;
+			this.Button_Prune.TabIndex = 3;
 			this.Button_Prune.Text = "Prune";
 			this.Button_Prune.Click += new System.EventHandler(this.Button_Prune_Click);
 			// 
@@ -985,7 +999,7 @@ namespace NZB_O_Matic
 			this.Button_DeleteQueue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.Button_DeleteQueue.Location = new System.Drawing.Point(168, 4);
 			this.Button_DeleteQueue.Name = "Button_DeleteQueue";
-			this.Button_DeleteQueue.TabIndex = 3;
+			this.Button_DeleteQueue.TabIndex = 4;
 			this.Button_DeleteQueue.Text = "Delete";
 			this.Button_DeleteQueue.Click += new System.EventHandler(this.Button_DeleteQueue_Click);
 			// 
@@ -1065,16 +1079,15 @@ namespace NZB_O_Matic
 			this.TabControl_Main.TabIndex = 13;
 			this.TabControl_Main.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
 			// 
-			// setIncompleteToQueuedButton
+			// ButtonDecodeIncomplete
 			// 
-			this.setIncompleteToQueuedButton.BackColor = System.Drawing.SystemColors.Control;
-			this.setIncompleteToQueuedButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.setIncompleteToQueuedButton.Location = new System.Drawing.Point(248, 4);
-			this.setIncompleteToQueuedButton.Name = "setIncompleteToQueuedButton";
-			this.setIncompleteToQueuedButton.Size = new System.Drawing.Size(104, 23);
-			this.setIncompleteToQueuedButton.TabIndex = 9;
-			this.setIncompleteToQueuedButton.Text = "Retry Incompletes";
-			this.setIncompleteToQueuedButton.Click += new System.EventHandler(this.setIncompleteToQueuedButton_Click);
+			this.ButtonDecodeIncomplete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.ButtonDecodeIncomplete.Location = new System.Drawing.Point(358, 4);
+			this.ButtonDecodeIncomplete.Name = "ButtonDecodeIncomplete";
+			this.ButtonDecodeIncomplete.Size = new System.Drawing.Size(64, 23);
+			this.ButtonDecodeIncomplete.TabIndex = 6;
+			this.ButtonDecodeIncomplete.Text = "Decode";
+			this.ButtonDecodeIncomplete.Click += new System.EventHandler(this.ButtonDecodeIncomplete_Click);
 			// 
 			// frmMain
 			// 
@@ -1340,6 +1353,11 @@ namespace NZB_O_Matic
 		#endregion
 
 		#region Button Clicks
+
+		private void ButtonDecodeIncomplete_Click(object sender, System.EventArgs e)
+		{
+			ForceDecode();
+		}
 		
 		private void setIncompleteToQueuedButton_Click(object sender, System.EventArgs e)
 		{
@@ -2837,5 +2855,7 @@ namespace NZB_O_Matic
 			}
 		}
 		#endregion
+
+
 	}
 }
