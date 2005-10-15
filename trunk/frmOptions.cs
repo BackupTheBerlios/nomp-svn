@@ -38,8 +38,9 @@ namespace NZB_O_Matic
 		public bool DeleteNZB;
 		public bool MonitorFolder;
 		public string MonitorPath;
+		public bool PausePar2;
 
-		public OptionValues(bool settray, bool setidle, int setidledelay, bool setprune, bool setretry, int setretrydelay, bool setlimitattempts, int setretryattempts, bool setassociate, bool setconnectonstart, string setsavepath, string setsavefolder, bool setdeletenzb, bool monFolder, string monPath)
+		public OptionValues(bool settray, bool setidle, int setidledelay, bool setprune, bool setretry, int setretrydelay, bool setlimitattempts, int setretryattempts, bool setassociate, bool setconnectonstart, string setsavepath, string setsavefolder, bool setdeletenzb, bool monFolder, string monPath, bool setpausepar2)
 		{
 			MinimizeToTray = settray;
 			DisconnectOnIdle = setidle;
@@ -56,6 +57,7 @@ namespace NZB_O_Matic
 			DeleteNZB = setdeletenzb;
 			MonitorFolder = monFolder;
 			MonitorPath = monPath;
+			PausePar2 = setpausepar2;
 		}
 	}
 
@@ -105,6 +107,8 @@ namespace NZB_O_Matic
 		private System.Windows.Forms.Button Button_NZB;
 		private System.Windows.Forms.TextBox Monitor_folder;
 		private System.Windows.Forms.CheckBox Check_Monitor;
+		private System.Windows.Forms.CheckBox Check_Pause_Par2;
+		private System.Windows.Forms.Label Label_Pause_Par2;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -157,8 +161,9 @@ namespace NZB_O_Matic
 			bool delete = this.Check_Delete.Checked;
 			bool monFolder = this.Check_Monitor.Checked;
 			string monPath = this.Monitor_folder.Text;
+			bool setpausepar2 = this.Check_Pause_Par2.Checked;
 
-			return new OptionValues(tray, idle, idledelay, prune, retryconnections, retrydelay, limitattempts, retryattempts, associate, connect, savepath, savefolder, delete, monFolder, monPath);
+			return new OptionValues(tray, idle, idledelay, prune, retryconnections, retrydelay, limitattempts, retryattempts, associate, connect, savepath, savefolder, delete, monFolder, monPath, setpausepar2 );
 		}
 
 		public void SetOptions(OptionValues ov)
@@ -181,6 +186,7 @@ namespace NZB_O_Matic
 			this.Check_Delete.Checked = ov.DeleteNZB;	
 			this.Monitor_folder.Text = ov.MonitorPath;
 			this.Check_Monitor.Checked = ov.MonitorFolder;
+			this.Check_Pause_Par2.Checked = ov.PausePar2;
 		}
 
 		#region Windows Form Designer generated code
@@ -211,6 +217,8 @@ namespace NZB_O_Matic
 			this.Button_Cancel = new System.Windows.Forms.Button();
 			this.Button_OK = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.Check_Pause_Par2 = new System.Windows.Forms.CheckBox();
+			this.Label_Pause_Par2 = new System.Windows.Forms.Label();
 			this.Check_Connect = new System.Windows.Forms.CheckBox();
 			this.Label_Connect = new System.Windows.Forms.Label();
 			this.panel2 = new System.Windows.Forms.Panel();
@@ -443,6 +451,7 @@ namespace NZB_O_Matic
 			this.Button_Cancel.Size = new System.Drawing.Size(80, 24);
 			this.Button_Cancel.TabIndex = 19;
 			this.Button_Cancel.Text = "Cancel";
+			this.Button_Cancel.Click += new System.EventHandler(this.Button_Cancel_Click);
 			// 
 			// Button_OK
 			// 
@@ -456,11 +465,14 @@ namespace NZB_O_Matic
 			this.Button_OK.Size = new System.Drawing.Size(80, 24);
 			this.Button_OK.TabIndex = 18;
 			this.Button_OK.Text = "OK";
+			this.Button_OK.Click += new System.EventHandler(this.Button_OK_Click);
 			// 
 			// panel1
 			// 
 			this.panel1.BackColor = System.Drawing.Color.White;
 			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel1.Controls.Add(this.Check_Pause_Par2);
+			this.panel1.Controls.Add(this.Label_Pause_Par2);
 			this.panel1.Controls.Add(this.Check_Connect);
 			this.panel1.Controls.Add(this.Label_Connect);
 			this.panel1.Controls.Add(this.Label_MinTray);
@@ -471,6 +483,24 @@ namespace NZB_O_Matic
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(152, 96);
 			this.panel1.TabIndex = 20;
+			// 
+			// Check_Pause_Par2
+			// 
+			this.Check_Pause_Par2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.Check_Pause_Par2.Location = new System.Drawing.Point(128, 72);
+			this.Check_Pause_Par2.Name = "Check_Pause_Par2";
+			this.Check_Pause_Par2.Size = new System.Drawing.Size(16, 16);
+			this.Check_Pause_Par2.TabIndex = 17;
+			// 
+			// Label_Pause_Par2
+			// 
+			this.Label_Pause_Par2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.Label_Pause_Par2.Location = new System.Drawing.Point(-24, 72);
+			this.Label_Pause_Par2.Name = "Label_Pause_Par2";
+			this.Label_Pause_Par2.Size = new System.Drawing.Size(144, 16);
+			this.Label_Pause_Par2.TabIndex = 16;
+			this.Label_Pause_Par2.Text = "Pause PAR2 Files";
+			this.Label_Pause_Par2.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// Check_Connect
 			// 
@@ -728,5 +758,16 @@ namespace NZB_O_Matic
 
 			this.Monitor_folder.Text = this.FolderBrowse_Path.SelectedPath;
 		}
+
+		private void Button_Cancel_Click(object sender, System.EventArgs e)
+		{
+		
+		}
+
+		private void Button_OK_Click(object sender, System.EventArgs e)
+		{
+		
+		}
+
 	}
 }

@@ -46,6 +46,10 @@ If, after turning off 'Needs Group', you get article errors, you may need to ena
 
 Version History
 ===============
+2005 Oct 15 - v0.49
+	+ Added option to pause par downloading
+	+ Added option to decode all incompletes.
+
 2005 Apr 23 - v0.48
 	* Fixed the file association so it will work when installed in a folder with a space
 	+ Added a button to set all incompletes back to queued

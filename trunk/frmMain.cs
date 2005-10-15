@@ -173,6 +173,7 @@ namespace NZB_O_Matic
 		private System.Windows.Forms.MenuItem Menu_Main_Options_ClearCache;
 		private System.Windows.Forms.Button setIncompleteToQueuedButton;
 		private System.Windows.Forms.Button ButtonDecodeIncomplete;
+		private System.Windows.Forms.MenuItem Context_Pause;
 		private ServerManager m_ServerManager;
 		#endregion 
 
@@ -345,6 +346,7 @@ namespace NZB_O_Matic
 			this.chDate = new System.Windows.Forms.ColumnHeader();
 			this.chGroups = new System.Windows.Forms.ColumnHeader();
 			this.Panel_QueueButtons = new System.Windows.Forms.Panel();
+			this.ButtonDecodeIncomplete = new System.Windows.Forms.Button();
 			this.setIncompleteToQueuedButton = new System.Windows.Forms.Button();
 			this.Button_Bottom = new System.Windows.Forms.Button();
 			this.Button_Down = new System.Windows.Forms.Button();
@@ -359,7 +361,7 @@ namespace NZB_O_Matic
 			this.Button_ClearLog = new System.Windows.Forms.Button();
 			this.Button_SaveLog = new System.Windows.Forms.Button();
 			this.TabControl_Main = new System.Windows.Forms.TabControl();
-			this.ButtonDecodeIncomplete = new System.Windows.Forms.Button();
+			this.Context_Pause = new System.Windows.Forms.MenuItem();
 			this.Panel_Connections.SuspendLayout();
 			this.TabPage_Servers.SuspendLayout();
 			this.Panel_ServerButtons.SuspendLayout();
@@ -661,7 +663,8 @@ namespace NZB_O_Matic
 																							  this.Context_MoveTop,
 																							  this.Context_MoveBottom,
 																							  this.Context_Divider3,
-																							  this.Context_Decode});
+																							  this.Context_Decode,
+																							  this.Context_Pause});
 			// 
 			// Context_MoveUp
 			// 
@@ -928,6 +931,16 @@ namespace NZB_O_Matic
 			this.Panel_QueueButtons.Size = new System.Drawing.Size(534, 32);
 			this.Panel_QueueButtons.TabIndex = 1;
 			// 
+			// ButtonDecodeIncomplete
+			// 
+			this.ButtonDecodeIncomplete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.ButtonDecodeIncomplete.Location = new System.Drawing.Point(358, 4);
+			this.ButtonDecodeIncomplete.Name = "ButtonDecodeIncomplete";
+			this.ButtonDecodeIncomplete.Size = new System.Drawing.Size(64, 23);
+			this.ButtonDecodeIncomplete.TabIndex = 6;
+			this.ButtonDecodeIncomplete.Text = "Decode";
+			this.ButtonDecodeIncomplete.Click += new System.EventHandler(this.ButtonDecodeIncomplete_Click);
+			// 
 			// setIncompleteToQueuedButton
 			// 
 			this.setIncompleteToQueuedButton.BackColor = System.Drawing.SystemColors.Control;
@@ -1079,15 +1092,11 @@ namespace NZB_O_Matic
 			this.TabControl_Main.TabIndex = 13;
 			this.TabControl_Main.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
 			// 
-			// ButtonDecodeIncomplete
+			// Context_Pause
 			// 
-			this.ButtonDecodeIncomplete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.ButtonDecodeIncomplete.Location = new System.Drawing.Point(358, 4);
-			this.ButtonDecodeIncomplete.Name = "ButtonDecodeIncomplete";
-			this.ButtonDecodeIncomplete.Size = new System.Drawing.Size(64, 23);
-			this.ButtonDecodeIncomplete.TabIndex = 6;
-			this.ButtonDecodeIncomplete.Text = "Decode";
-			this.ButtonDecodeIncomplete.Click += new System.EventHandler(this.ButtonDecodeIncomplete_Click);
+			this.Context_Pause.Index = 7;
+			this.Context_Pause.Text = "Pause";
+			this.Context_Pause.Click += new System.EventHandler(this.Context_Pause_Click_1);
 			// 
 			// frmMain
 			// 
@@ -1588,7 +1597,7 @@ namespace NZB_O_Matic
 			Decoder.DecoderThread.Name = "Decoder";
 			Decoder.DecoderThread.Start();
 
-			Global.m_Options = new OptionValues(false, true, 15, false, true, 5, true, 6, false, false, "", "", false, false, Global.m_CurrentDirectory);	
+			Global.m_Options = new OptionValues(false, true, 15, false, true, 5, true, 6, false, false, "", "", false, false, Global.m_CurrentDirectory, false);	
 			if(!LoadOptions(Global.m_CurrentDirectory + "options.xml"))
 				frmMain.LogWriteError(Global.m_CurrentDirectory + "options.xml failed to load");
 
@@ -1719,6 +1728,7 @@ namespace NZB_O_Matic
 			Global.m_Options.DeleteNZB = (bool)LoadOptionValue(options, "deletenzb", typeof(bool), false);
 			Global.m_Options.MonitorPath = (string)LoadOptionValue(options, "monitorpath", typeof(string), Global.m_CurrentDirectory);
 			Global.m_Options.MonitorFolder = (bool)LoadOptionValue(options, "monitorfolder", typeof(bool), false);
+			Global.m_Options.PausePar2 = (bool)LoadOptionValue(options, "pausepar2", typeof(bool), false);
 
 			m_TotalDownloadOffset = (double)LoadOptionValue(options, "downloadoffset", typeof(double), 0);
 
@@ -1964,7 +1974,24 @@ namespace NZB_O_Matic
 				}
 				else
 				{
-					article.Status = ArticleStatus.Queued;
+					if(Global.m_Options.PausePar2)
+					{
+						if( article.Subject.IndexOf(".vol") != -1 )
+						{
+							if( article.Subject.IndexOf(".par2") != -1 || article.Subject.IndexOf(".PAR2") != -1)
+							{
+								article.Status = ArticleStatus.Paused;
+							}
+						}
+						else
+						{
+							article.Status = ArticleStatus.Queued;
+						}
+					}			
+					else 
+					{
+						article.Status = ArticleStatus.Queued;
+					}
 					m_ServerManager.AddArticle(article);
 				}
 
@@ -2250,6 +2277,7 @@ namespace NZB_O_Matic
 			XmlAddElement(options, "disconnectidle", Global.m_Options.DeleteNZB.ToString());
 			XmlAddElement(options, "monitorfolder", Global.m_Options.MonitorFolder.ToString());
 			XmlAddElement(options, "monitorpath", Global.m_Options.MonitorPath.ToString());
+			XmlAddElement(options, "pausepar2", Global.m_Options.PausePar2.ToString());
 			
 			XmlAddElement(options, "downloadoffset", ((((double)m_ServerManager.LifetimeBytesReceived / 1024) / 1024) + m_TotalDownloadOffset).ToString());
 
@@ -2666,6 +2694,28 @@ namespace NZB_O_Matic
 			Global.m_SaveState = true;
 		}
 
+		private void Pause()
+		{
+			lock(lvArticles)
+			{
+				foreach( ListViewItem lvItem in lvArticles.SelectedItems)
+				{
+					Article article = (Article) lvItem.Tag;
+					if( article.Status != ArticleStatus.Paused && article.Status != ArticleStatus.DecodeQueued && article.Status != ArticleStatus.Decoding && article.Status != ArticleStatus.Decoded)
+					{
+						article.Status = ArticleStatus.Paused;
+					}
+					else
+					{
+						if( article.Status == ArticleStatus.Paused)
+						{
+							article.Status = ArticleStatus.Queued;
+						}
+					}
+				}
+			}
+
+		}
 		private void Context_Decode_Click(object sender, System.EventArgs e)
 		{
 			ForceDecode();
@@ -2855,6 +2905,11 @@ namespace NZB_O_Matic
 			}
 		}
 		#endregion
+
+		private void Context_Pause_Click_1(object sender, System.EventArgs e)
+		{
+			Pause();
+		}
 
 
 	}

@@ -166,15 +166,17 @@ namespace NZB_O_Matic
 	}
 
 	public enum ArticleStatus { Loading = 1,
-								Queued = 2,
-								Downloading = 3,
-								DecodeQueued = 4,
-								Decoding = 5,
-								Decoded = 6,
-								Error = 7,
-								InternalError = 8,
-								Deleted = 9,
-								Incomplete = 10 };
+								Paused = 2,
+								Queued = 3,
+								Downloading = 4,
+								DecodeQueued = 5,
+								Decoding = 6,
+								Decoded = 7,
+								Error = 8,
+								InternalError = 9,
+								Deleted = 10,
+								Incomplete = 11,
+								};
 
 	public class Article
 	{
@@ -434,6 +436,9 @@ namespace NZB_O_Matic
 					break;
 				case ArticleStatus.Downloading:
 					SetSubItem(3, "Downloading");
+					break;
+				case ArticleStatus.Paused:
+					SetSubItem(3, "Paused");
 					break;
 				default:
 					SetSubItem(3, "");
