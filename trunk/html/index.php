@@ -103,6 +103,14 @@ NOMP is an open-source project.  If you would like to help with this project, re
 <p>
 <span class="header">Change Log</span>
 <p>
+<span class="logheader">Version 0.49</span>
+<ul class="changelog">
+	<li>+ Add option to pause/unpause selected files
+	<li>+ Add option to pause all par files
+	<li>+ Add option to decode all files in the queue
+</ul></p>
+
+<p>
 <span class="logheader">Version 0.48</span>
 <ul class="changelog">
 	<li>* Fixed the file association so it will work when installed in a folder with a space
@@ -168,7 +176,7 @@ NOMP is an open-source project.  If you would like to help with this project, re
 
 					<h2>Downloads</h2>
 					<ul>
-					<li><a href="NzbOMaticPlusSetup.exe">Binary - Download (Version 0.48)</a>
+					<li><a href="NzbOMaticPlusSetup.exe">Binary - Download (Version 0.49)</a>
 					</ul>
 
 					<h2>Developers</h2>
@@ -181,7 +189,7 @@ NOMP is an open-source project.  If you would like to help with this project, re
 					<ul>
 					<!-- <header> -->
 					<li>Original Release: February 10, 2005
-					<li>Last Updated: April 23, 2005
+					<li>Last Updated: October 15, 2005
 					<li>Required: <a href="http://msdn.microsoft.com/netframework/downloads/framework1_1/">1.1 .NET Framework</a>
 					</ul>
 
