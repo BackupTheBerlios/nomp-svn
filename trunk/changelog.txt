@@ -46,6 +46,14 @@ If, after turning off 'Needs Group', you get article errors, you may need to ena
 
 Version History
 ===============
+2005 Oct 23 - v0.50
+	* [Bug #4053] Fixed edit menu add/edit/delete to be disabled when connected
+	* [Bug #4072] Fixed the Disconnect on idle not being set properly
+	+ [Request #1105] Added option to delete prune from right click menu
+	+ [Request #1149] Added quick options for connect/disconnect
+	
+	
+
 2005 Oct 15 - v0.49
 	+ Added option to pause par downloading
 	+ Added option to decode all incompletes.

@@ -103,6 +103,15 @@ NOMP is an open-source project.  If you would like to help with this project, re
 <p>
 <span class="header">Change Log</span>
 <p>
+<span class="logheader">Version 0.50</span>
+<ul class="changelog">
+	<li>* [Bug #4053] Fixed edit menu add/edit/delete to be disabled when connected
+	<li>* [Bug #4072] Fixed the Disconnect on idle not being set properly
+	<li>+ [Request #1105] Added option to delete prune from right click menu
+	<li>+ [Request #1149] Added quick options for connect/disconnect
+</ul></p>
+
+<p>
 <span class="logheader">Version 0.49</span>
 <ul class="changelog">
 	<li>+ Add option to pause/unpause selected files
@@ -176,7 +185,7 @@ NOMP is an open-source project.  If you would like to help with this project, re
 
 					<h2>Downloads</h2>
 					<ul>
-					<li><a href="NzbOMaticPlusSetup.exe">Binary - Download (Version 0.49)</a>
+					<li><a href="NzbOMaticPlusSetup.exe">Binary - Download (Version 0.50)</a>
 					</ul>
 
 					<h2>Developers</h2>

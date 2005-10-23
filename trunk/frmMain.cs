@@ -174,6 +174,9 @@ namespace NZB_O_Matic
 		private System.Windows.Forms.Button setIncompleteToQueuedButton;
 		private System.Windows.Forms.Button ButtonDecodeIncomplete;
 		private System.Windows.Forms.MenuItem Context_Pause;
+		private System.Windows.Forms.MenuItem Context_Delete;
+		private System.Windows.Forms.MenuItem menuItem2;
+		private System.Windows.Forms.MenuItem Context_Prune;
 		private ServerManager m_ServerManager;
 		#endregion 
 
@@ -320,6 +323,7 @@ namespace NZB_O_Matic
 			this.Context_MoveBottom = new System.Windows.Forms.MenuItem();
 			this.Context_Divider3 = new System.Windows.Forms.MenuItem();
 			this.Context_Decode = new System.Windows.Forms.MenuItem();
+			this.Context_Pause = new System.Windows.Forms.MenuItem();
 			this.Splitter_Lists = new System.Windows.Forms.Splitter();
 			this.Save_Log = new System.Windows.Forms.SaveFileDialog();
 			this.TabPage_Servers = new System.Windows.Forms.TabPage();
@@ -361,7 +365,9 @@ namespace NZB_O_Matic
 			this.Button_ClearLog = new System.Windows.Forms.Button();
 			this.Button_SaveLog = new System.Windows.Forms.Button();
 			this.TabControl_Main = new System.Windows.Forms.TabControl();
-			this.Context_Pause = new System.Windows.Forms.MenuItem();
+			this.Context_Delete = new System.Windows.Forms.MenuItem();
+			this.menuItem2 = new System.Windows.Forms.MenuItem();
+			this.Context_Prune = new System.Windows.Forms.MenuItem();
 			this.Panel_Connections.SuspendLayout();
 			this.TabPage_Servers.SuspendLayout();
 			this.Panel_ServerButtons.SuspendLayout();
@@ -442,6 +448,7 @@ namespace NZB_O_Matic
 			// Menu_Main_File_Connect
 			// 
 			this.Menu_Main_File_Connect.Index = 0;
+			this.Menu_Main_File_Connect.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftC;
 			this.Menu_Main_File_Connect.Text = "Connect";
 			this.Menu_Main_File_Connect.Click += new System.EventHandler(this.Menu_Main_File_Connect_Click);
 			// 
@@ -449,6 +456,7 @@ namespace NZB_O_Matic
 			// 
 			this.Menu_Main_File_Disconnect.Enabled = false;
 			this.Menu_Main_File_Disconnect.Index = 1;
+			this.Menu_Main_File_Disconnect.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftD;
 			this.Menu_Main_File_Disconnect.Text = "Disconnect";
 			this.Menu_Main_File_Disconnect.Click += new System.EventHandler(this.Menu_Main_File_Disconnect_Click);
 			// 
@@ -664,7 +672,10 @@ namespace NZB_O_Matic
 																							  this.Context_MoveBottom,
 																							  this.Context_Divider3,
 																							  this.Context_Decode,
-																							  this.Context_Pause});
+																							  this.Context_Pause,
+																							  this.Context_Delete,
+																							  this.menuItem2,
+																							  this.Context_Prune});
 			// 
 			// Context_MoveUp
 			// 
@@ -705,6 +716,12 @@ namespace NZB_O_Matic
 			this.Context_Decode.Index = 6;
 			this.Context_Decode.Text = "Decode";
 			this.Context_Decode.Click += new System.EventHandler(this.Context_Decode_Click);
+			// 
+			// Context_Pause
+			// 
+			this.Context_Pause.Index = 7;
+			this.Context_Pause.Text = "Pause";
+			this.Context_Pause.Click += new System.EventHandler(this.Context_Pause_Click_1);
 			// 
 			// Splitter_Lists
 			// 
@@ -1092,11 +1109,22 @@ namespace NZB_O_Matic
 			this.TabControl_Main.TabIndex = 13;
 			this.TabControl_Main.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
 			// 
-			// Context_Pause
+			// Context_Delete
 			// 
-			this.Context_Pause.Index = 7;
-			this.Context_Pause.Text = "Pause";
-			this.Context_Pause.Click += new System.EventHandler(this.Context_Pause_Click_1);
+			this.Context_Delete.Index = 8;
+			this.Context_Delete.Text = "Delete";
+			this.Context_Delete.Click += new System.EventHandler(this.Context_Delete_Click);
+			// 
+			// menuItem2
+			// 
+			this.menuItem2.Index = 9;
+			this.menuItem2.Text = "-";
+			// 
+			// Context_Prune
+			// 
+			this.Context_Prune.Index = 10;
+			this.Context_Prune.Text = "Prune";
+			this.Context_Prune.Click += new System.EventHandler(this.Context_Prune_Click);
 			// 
 			// frmMain
 			// 
@@ -2052,6 +2080,9 @@ namespace NZB_O_Matic
 			this.Button_AddServer.Enabled = false;
 			this.Button_EditServer.Enabled = false;
 			this.Button_DeleteServer.Enabled = false;
+			this.Menu_Main_Edit_AddServer.Enabled = false;
+			this.Menu_Main_Edit_EditServer.Enabled = false;
+			this.Menu_Main_Edit_DeleteServer.Enabled = false;
 
 			Global.m_Connected = true;
 			m_ServerManager.Connect();
@@ -2074,6 +2105,9 @@ namespace NZB_O_Matic
 			this.Button_AddServer.Enabled = true;
 			this.Button_EditServer.Enabled = true;
 			this.Button_DeleteServer.Enabled = true;
+			this.Menu_Main_Edit_AddServer.Enabled = true;
+			this.Menu_Main_Edit_EditServer.Enabled = true;
+			this.Menu_Main_Edit_DeleteServer.Enabled = true;
 
 			Global.m_Connected = false;
 			m_ServerManager.Disconnect();
@@ -2274,7 +2308,7 @@ namespace NZB_O_Matic
 			XmlAddElement(options, "savepath", Global.m_Options.SavePath.ToString());
 			XmlAddElement(options, "savefolder", Global.m_Options.SaveFolder.ToString());
 			XmlAddElement(options, "deletenzb", Global.m_Options.DeleteNZB.ToString());
-			XmlAddElement(options, "disconnectidle", Global.m_Options.DeleteNZB.ToString());
+			XmlAddElement(options, "disconnectidle", Global.m_Options.DisconnectOnIdle.ToString());
 			XmlAddElement(options, "monitorfolder", Global.m_Options.MonitorFolder.ToString());
 			XmlAddElement(options, "monitorpath", Global.m_Options.MonitorPath.ToString());
 			XmlAddElement(options, "pausepar2", Global.m_Options.PausePar2.ToString());
@@ -2911,6 +2945,16 @@ namespace NZB_O_Matic
 			Pause();
 		}
 
+		private void Context_Prune_Click(object sender, System.EventArgs e)
+		{
+			this.lvArticles.BeginUpdate();
+			m_ServerManager.PruneQueue();
+			this.lvArticles.EndUpdate();
+		}
 
+		private void Context_Delete_Click(object sender, System.EventArgs e)
+		{
+			DeleteQueueItems();
+		}
 	}
 }

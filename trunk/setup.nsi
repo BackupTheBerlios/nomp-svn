@@ -66,6 +66,7 @@ Section "Install Package" SecInstall
   File "bin\Release\interface.dll"
   File "bin\Release\NZB-O-MaticPlus.exe"
   File "changelog.txt"
+  File "readme.txt"
   
 
 	CreateDirectory "$STARTMENU\Programs\NOMP"

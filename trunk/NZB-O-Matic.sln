@@ -32,7 +32,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
 		changelog.txt = changelog.txt
+		html\index.php = html\index.php
 		license.htm = license.htm
+		readme.txt = readme.txt
 		TODO.txt = TODO.txt
 		html\version.txt = html\version.txt
 	EndGlobalSection
