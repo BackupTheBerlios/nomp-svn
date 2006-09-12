@@ -236,8 +236,10 @@ namespace NZB_O_Matic
 			foreach( long TimeReceived in m_TimeReceivedHistory)
 				t += TimeReceived;
 
-			d /= t;
-			d /= 1.024; // Convert to kb/s
+            if (d > 0)
+			    d /= t;
+            if (d > 0)
+			    d /= 1.024; // Convert to kb/s
 
 			m_Speed = d;
 
@@ -250,7 +252,8 @@ namespace NZB_O_Matic
 			// Update the status
 			if(Global.m_Connected)
 			{
-				if(m_TotalBytesReceived == 0)
+				if(m_TotalBytesReceived == 0
+                    || m_Size == 0)
 				{
 					progress = "0%";
 				}
@@ -282,7 +285,10 @@ namespace NZB_O_Matic
 			m_ConnectAttempts++;
 
 			if(m_Connected)
+			{
+				m_ConnectAttempts = 0;
 				return;
+			}
 
 			for( m_BytesReceivedHistoryCnt = 0; m_BytesReceivedHistoryCnt < 16; m_BytesReceivedHistoryCnt++)
 			{
@@ -300,6 +306,7 @@ namespace NZB_O_Matic
 				m_DownloadThread = new Thread( new ThreadStart(this.Initialize));
 				m_DownloadThread.Name = m_Hostname + "," + m_Port.ToString() + "," + m_ID.ToString();
 				m_DownloadThread.Start();
+				m_ConnectAttempts = 0;
 			}
 			catch
 			{
@@ -499,7 +506,7 @@ namespace NZB_O_Matic
 							if(segment.Article.Status != ArticleStatus.Deleted)
 							{
 								// We did, save the article
-								System.IO.StreamWriter sw = new System.IO.StreamWriter( System.IO.Path.GetFullPath("Cache/" + segment.ArticleID), false, System.Text.Encoding.GetEncoding("iso-8859-1"));
+								System.IO.StreamWriter sw = new System.IO.StreamWriter( System.IO.Path.GetFullPath(Global.m_CacheDirectory +  segment.ArticleID), false, System.Text.Encoding.GetEncoding("iso-8859-1"));
 								sw.Write( Article);
 								sw.Close();
 

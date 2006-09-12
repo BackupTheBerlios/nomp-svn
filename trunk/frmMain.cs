@@ -1610,14 +1610,37 @@ namespace NZB_O_Matic
 
 		private void frmMain_Load(object sender, System.EventArgs e)
 		{
-			Global.ConnectionLog = new CEventLogEngine( Global.m_CurrentDirectory + "connection.log");
+			try
+			{
+				Global.m_DataDirectory = Environment.GetEnvironmentVariable("appdata") + @"\nomp\";
+				if (Global.m_DataDirectory == @"\nomp\") throw new ArgumentNullException();
+			}
+			catch
+			{
+				Global.m_DataDirectory = Global.m_CurrentDirectory;
+			}
+			Global.m_CacheDirectory = Global.m_DataDirectory + @"\Cache\";
+			
+			try
+			{
+				RegistryKey rk = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders");
+				string str = (string)rk.GetValue("Personal");
+				if (str == null ) throw new ArgumentNullException();
+				Global.m_DownloadDirectory = str + @"\download\";
+			}
+			catch
+			{
+				Global.m_DownloadDirectory = Global.m_CurrentDirectory + @"\download\";
+			}
+
+			Global.ConnectionLog = new CEventLogEngine( Global.m_DataDirectory + "connection.log");
 			Global.ConnectionLog.Enabled = false; // Set to true to have all NNTP trafic logged to connection.log
 
-			if( !System.IO.Directory.Exists( Global.m_CurrentDirectory + "Cache"))
-				System.IO.Directory.CreateDirectory( Global.m_CurrentDirectory + "Cache");
+			if( !System.IO.Directory.Exists( Global.m_CacheDirectory))
+				System.IO.Directory.CreateDirectory( Global.m_CacheDirectory);
 
-			if( !System.IO.Directory.Exists( Global.m_CurrentDirectory + "Download"))
-				System.IO.Directory.CreateDirectory( Global.m_CurrentDirectory + "Download");
+			if( !System.IO.Directory.Exists( Global.m_DownloadDirectory))
+				System.IO.Directory.CreateDirectory( Global.m_DownloadDirectory);
 
 			Decoder.DecodeQueue = new ArrayQueue();
 			Decoder.DecoderThread = new System.Threading.Thread( new System.Threading.ThreadStart( Decoder.Decode));
@@ -1626,15 +1649,21 @@ namespace NZB_O_Matic
 			Decoder.DecoderThread.Start();
 
 			Global.m_Options = new OptionValues(false, true, 15, false, true, 5, true, 6, false, false, "", "", false, false, Global.m_CurrentDirectory, false);	
+			if(!LoadOptions(Global.m_DataDirectory + "options.xml"))
+			{
 			if(!LoadOptions(Global.m_CurrentDirectory + "options.xml"))
 				frmMain.LogWriteError(Global.m_CurrentDirectory + "options.xml failed to load");
 
+			}
 			m_ServerManager = new ServerManager();
+			if(!m_ServerManager.LoadServers(Global.m_DataDirectory + "servers.xml"))
+			{
 			if(!m_ServerManager.LoadServers(Global.m_CurrentDirectory + "servers.xml"))
 				frmMain.LogWriteError(Global.m_CurrentDirectory + "servers.xml failed to load");
 
-			if(System.IO.File.Exists(Global.m_CurrentDirectory + "nzb-o-matic.xml"))
-				ImportNZB(Global.m_CurrentDirectory + "nzb-o-matic.xml");
+			}
+			if(System.IO.File.Exists(Global.m_DataDirectory + "nzb-o-matic.xml"))
+				ImportNZB(Global.m_DataDirectory + "nzb-o-matic.xml");
 
 			if( Global.m_Options.ConnectOnStart)
 			{
@@ -2238,7 +2267,7 @@ namespace NZB_O_Matic
 				XmlDoc.DocumentElement.AppendChild(XmlArticle);
 			}
 
-			XmlDoc.Save(Global.m_CurrentDirectory + "nzb-o-matic.xml");
+			XmlDoc.Save(Global.m_DataDirectory + "nzb-o-matic.xml");
 
 			//servers
 			System.Xml.XmlDocument ServerDoc = new System.Xml.XmlDocument();
@@ -2287,7 +2316,7 @@ namespace NZB_O_Matic
 			}
 			
 			ServerDoc.AppendChild(servergroups);
-			ServerDoc.Save(Global.m_CurrentDirectory + "servers.xml");
+			ServerDoc.Save(Global.m_DataDirectory + "servers.xml");
 
 			//options
 			System.Xml.XmlDocument OptionsDoc = new System.Xml.XmlDocument();
@@ -2357,7 +2386,7 @@ namespace NZB_O_Matic
 
 			OptionsDoc.AppendChild(options);
 
-			OptionsDoc.Save(Global.m_CurrentDirectory + "options.xml");
+			OptionsDoc.Save(Global.m_DataDirectory + "options.xml");
 		}
 
 		private void Context_Connect_Click(object sender, System.EventArgs e)
@@ -2544,7 +2573,7 @@ namespace NZB_O_Matic
 			//every 5 min fix up the queues
 			if (count % 600 == 0)
 			{
-				m_ServerManager.RebuildQueue();
+				//m_ServerManager.RebuildQueue();
 			}
 
 			//make sure variable doesn't get too big
@@ -2747,8 +2776,8 @@ namespace NZB_O_Matic
 						}
 					}
 				}
+				m_ServerManager.RebuildQueue();
 			}
-
 		}
 		private void Context_Decode_Click(object sender, System.EventArgs e)
 		{

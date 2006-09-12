@@ -169,7 +169,7 @@ namespace NZB_O_Matic
 		public void SetOptions(OptionValues ov)
 		{
 			if(ov.SavePath == "")
-				ov.SavePath = System.IO.Path.GetFullPath(Global.m_CurrentDirectory + "Download");
+				ov.SavePath = System.IO.Path.GetFullPath(Global.m_DownloadDirectory );
 
 			this.Check_Tray.Checked = ov.MinimizeToTray;
 			this.Check_Idle.Checked = ov.DisconnectOnIdle;

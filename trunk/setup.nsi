@@ -1,7 +1,7 @@
 !define PRODUCT_NAME "NZB-O-Matic+"
 !define OUTPUT_NAME "NzbOMaticPlusSetup.exe"
 
-!define INSTALLUTIL "$WINDIR\Microsoft.NET\Framework\v1.1.4322\InstallUtil.exe"
+!define INSTALLUTIL "$WINDIR\Microsoft.NET\Framework\v2.0.50727\InstallUtil.exe"
 
 ;--------------------------------
 ;Include Modern UI
@@ -90,7 +90,7 @@ SectionEnd
 
 Function GetDotNet
 	IfFileExists "${INSTALLUTIL}" NextStep
-		MessageBox MB_ICONEXCLAMATION|MB_YESNO "${PRODUCT_NAME} requires that the .NET Framework is installed which it appears you do not have installed.  If you want to install anyways click Yes." IDYES Skip
+		MessageBox MB_ICONEXCLAMATION|MB_YESNO "${PRODUCT_NAME} requires that the .NET 2.0 Framework is installed which it appears you do not have installed.  If you want to install anyways click Yes." IDYES Skip
 		abort
 	Skip:
 	NextStep:

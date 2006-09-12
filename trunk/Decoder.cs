@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections;
+using System.Management;
 
 namespace NZB_O_Matic
 {
@@ -26,6 +27,46 @@ namespace NZB_O_Matic
 		public Decoder()
 		{
 		}
+
+		public enum DiskProperties
+		{
+			Access,
+			Availability,
+			BlockSize,
+			Caption,
+			Compressed,
+			ConfigManagerErrorCode,
+			ConfigManagerUserConfig,
+			CreationClassName,
+			Description,
+			DeviceID,
+			DriveType,
+			ErrorCleared,
+			ErrorDescription,
+			ErrorMethodology,
+			FileSystem,
+			FreeSpace,
+			InstallDate,
+			LastErrorCode,
+			MaximumComponentLength,
+			MediaType,
+			Name,
+			NumberOfBlocks,
+			PNPDeviceID,
+			PowerManagementCapabilities,
+			PowerManagementSupported,
+			ProviderName,
+			Purpose,
+			Size,
+			Status,
+			StatusInfo,
+			SupportsFileBasedCompression,
+			SystemCreationClassName,
+			SystemName,
+			VolumeName,
+			VolumeSerialNumber
+		}
+
 
 		public static ArrayQueue DecodeQueue;
 
@@ -55,8 +96,11 @@ namespace NZB_O_Matic
 						{
 							try
 							{
-								if(System.IO.File.Exists(System.IO.Path.GetFullPath("Cache\\" + segment.ArticleID)))
+/*								if(System.IO.File.Exists(System.IO.Path.GetFullPath("Cache\\" + segment.ArticleID)))
 									System.IO.File.Delete(System.IO.Path.GetFullPath("Cache\\" + segment.ArticleID));
+*/
+								if(System.IO.File.Exists(System.IO.Path.GetFullPath(Global.m_CacheDirectory + segment.ArticleID)))
+									System.IO.File.Delete(System.IO.Path.GetFullPath(Global.m_CacheDirectory + segment.ArticleID));
 							}
 							catch(Exception q)
 							{
@@ -135,8 +179,7 @@ namespace NZB_O_Matic
 		private static string GetDirectory(Article article)
 		{
 			if(Global.m_Options.SavePath == "")
-				Global.m_Options.SavePath = System.IO.Path.GetFullPath(Environment.CurrentDirectory + "\\" + "Download");
-
+				Global.m_Options.SavePath = System.IO.Path.GetFullPath(Global.m_DownloadDirectory);
 			string path = Global.m_Options.SavePath;
 			
 			/* while(path.StartsWith("\\")) // Why wouldnt you want \\ paths ?
@@ -289,7 +332,19 @@ namespace NZB_O_Matic
 			return str;
 		}
 
+
+		private static ManagementObjectSearcher GetDriveInfo(string name)
+		{
+			
+			SelectQuery query = new SelectQuery("Win32_LogicalDisk", "Name='" + name + "'");
+
+			ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
+
+			return searcher;
+		}
+
 		public enum DecodeStatus { Decoded, FailedCRC, FailedNothingToDecode };
+
 		public static DecodeStatus DecodeArticle( Article article)
 		{
 			System.IO.FileStream output = null;
@@ -310,10 +365,10 @@ namespace NZB_O_Matic
 			foreach( Segment segment in article.Segments)
 			{
 				// Check if the file exists, if not, skip the segment
-				if( !System.IO.File.Exists( System.IO.Path.GetFullPath("Cache\\" + segment.ArticleID)))
+				if( !System.IO.File.Exists( System.IO.Path.GetFullPath(Global.m_CacheDirectory + segment.ArticleID)))
 					continue;
 
-				input = new System.IO.StreamReader( System.IO.Path.GetFullPath("Cache\\" + segment.ArticleID), System.Text.Encoding.GetEncoding("iso-8859-1"));
+				input = new System.IO.StreamReader( System.IO.Path.GetFullPath(Global.m_CacheDirectory + segment.ArticleID), System.Text.Encoding.GetEncoding("iso-8859-1"));
 
 				// If uudecode is used, each file is automaticly a new segment
 				if( decoder == "uudecode" || (decoder == "mime" && sdecoder == "base64"))
@@ -504,9 +559,19 @@ namespace NZB_O_Matic
 					{
 						if( line.StartsWith( "=ybegin "))
 						{
+							int c;
 							decoder = "yenc";
 							crc.StartByteCRC();
-
+							//rebuild correctly missformed spaces in this line, but not the filename
+							c = line.IndexOf( "name");
+							string ybegin = line.Substring(0, c-1);
+							string name = line.Substring(c+5);
+							line = ybegin.Replace(" ",""); //strip spaces
+							ybegin = line.Replace("part="," part=");//add spaces where nedded
+							line = ybegin.Replace("line="," line=");
+							ybegin = line.Replace("size="," size=");
+							line = ybegin + " name=" + name;
+							
 							// Check if its a valid ybegin line, as per 1.2 line, size and name have to be present
 							if( line.IndexOf("line=") != -1 && line.IndexOf("size=") != -1 && line.IndexOf("name=") != -1)
 							{
@@ -514,7 +579,6 @@ namespace NZB_O_Matic
 								b = line.IndexOf( "size=");
 								e = line.IndexOf( " ", b);
 								outputsize = long.Parse( line.Substring(b+5, e-b-5));
-
 								b = line.IndexOf( "name=");
 								if( outputfile != line.Substring(b+5))
 								{
@@ -525,7 +589,7 @@ namespace NZB_O_Matic
 									//article.Filename = article.Filename + outputfile;
 
 									string outputdir = GetDirectory(article);
-
+									
 									try
 									{
 										if( !System.IO.Directory.Exists( System.IO.Path.GetFullPath(outputdir)))
@@ -542,8 +606,24 @@ namespace NZB_O_Matic
 										output.Close();
 										output = null;
 									}
-
-									output = new System.IO.FileStream( System.IO.Path.GetFullPath(outputdir) + "\\" + outputfile, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write, System.IO.FileShare.None, 1024*1024);
+									
+									string outputdrive = outputdir.Substring(0,2);
+									long  size = article.Size;
+									foreach (ManagementObject disk in GetDriveInfo(outputdrive).Get())
+									{
+										if (size > Convert.ToInt64(disk[DiskProperties.FreeSpace.ToString()].ToString()))
+										{
+											frmMain.LogWriteError( "Unable to create file : no space on drive " + outputdrive);
+											input.Close();
+											input = null;
+											return DecodeStatus.FailedNothingToDecode;
+										}
+										else
+										{
+										output = new System.IO.FileStream( System.IO.Path.GetFullPath(outputdir) + "\\" + outputfile, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write, System.IO.FileShare.None, 1024*1024);
+										}
+									}
+									
 								}
 							}
 						}
@@ -579,7 +659,22 @@ namespace NZB_O_Matic
 								output = null;
 							}
 
-							output = new System.IO.FileStream( System.IO.Path.GetFullPath(outputdir) + "\\" + outputfile, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write, System.IO.FileShare.None, 1024*1024);
+							string outputdrive = outputdir.Substring(0,2);
+							long  size = article.Size;
+							foreach (ManagementObject disk in GetDriveInfo(outputdrive).Get())
+							{
+								if (size > Convert.ToInt64(disk[DiskProperties.FreeSpace.ToString()].ToString()))
+								{
+									frmMain.LogWriteError( "Unable to create file : no space on drive " + outputdrive);
+									input.Close();
+									input = null;
+									return DecodeStatus.FailedNothingToDecode;
+								}
+								else
+								{
+								output = new System.IO.FileStream( System.IO.Path.GetFullPath(outputdir) + "\\" + outputfile, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write, System.IO.FileShare.None, 1024*1024);
+								}
+							}
 						}
 
 						if( line.StartsWith( "Content-Type: application/octet-stream;"))
@@ -619,8 +714,22 @@ namespace NZB_O_Matic
 								output.Close();
 								output = null;
 							}
-
-							output = new System.IO.FileStream( System.IO.Path.GetFullPath(outputdir) + "\\" + outputfile, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write, System.IO.FileShare.None, 1024*1024);
+							string outputdrive = outputdir.Substring(0,2);
+							long  size = article.Size;
+							foreach (ManagementObject disk in GetDriveInfo(outputdrive).Get())
+							{
+								if (size > Convert.ToInt64(disk[DiskProperties.FreeSpace.ToString()].ToString()))
+								{
+									frmMain.LogWriteError( "Unable to create file : no space on drive " + outputdrive);
+									input.Close();
+									input = null;
+									return DecodeStatus.FailedNothingToDecode;
+								}
+								else
+								{
+								output = new System.IO.FileStream( System.IO.Path.GetFullPath(outputdir) + "\\" + outputfile, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write, System.IO.FileShare.None, 1024*1024);
+								}
+							}
 						}
 					}
 
@@ -630,8 +739,16 @@ namespace NZB_O_Matic
 				input.Close();
 				input = null;
 
-				if( output != null)
-					output.Flush();
+				try
+				{
+					if( output != null)
+						output.Flush();
+				}
+				catch( Exception ex)
+				{
+					frmMain.LogWriteError("pb during Flushing on disk");
+					throw(ex);
+				}
 			}
 
 			if( output != null)
@@ -646,8 +763,11 @@ namespace NZB_O_Matic
 			{
 				// Pretty sure everything went ok, deleting partial files...
 				foreach( Segment segment in article.Segments)
-					if( System.IO.File.Exists( System.IO.Path.GetFullPath("Cache\\" + segment.ArticleID)))
+/*					if( System.IO.File.Exists( System.IO.Path.GetFullPath("Cache\\" + segment.ArticleID)))
 						System.IO.File.Delete( System.IO.Path.GetFullPath("Cache\\" + segment.ArticleID));
+*/
+					if( System.IO.File.Exists(System.IO.Path.GetFullPath(Global.m_CacheDirectory + segment.ArticleID)))
+						System.IO.File.Delete(System.IO.Path.GetFullPath(Global.m_CacheDirectory + segment.ArticleID));
 			}
 
 			if( crcfailed)

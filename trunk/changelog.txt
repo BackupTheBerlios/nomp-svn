@@ -46,6 +46,27 @@ If, after turning off 'Needs Group', you get article errors, you may need to ena
 
 Version History
 ===============
+2006 Sep 11 - v0.51 penndu/over
+	+ Modify the directories : the cache directory and the config files are now in %APPDATA%\nomp
+	  (until this exist) and the default download directory is in "my documents". It's because we
+	  have not always the right to write in the pathtoexe directory (install made bye an administrator)
+	* [Bug #5564] fixed the bug with article shown queued and never downloaded 
+	  (modify FillQueues to add the articles beeing donloading)
+	* [Bug #4922] Fixed problem with pause or unpause who didn't effect immediately 
+	  (rebuilding dl queue when pause, unpause or moving an aticle in the queue)
+	* Fixed a bug who let a file open when no space left on disk while writing 
+	  (verify the space left on disk before opening file)(WMI should be replaced with DriveInfo when
+	  migration to .NET 2.0)
+	* Fixed a bug while decoding missformed yenc header (rewrite correctly the spaces in the line)
+	+ Modify the totalMB : only the articles to be downloaded (ie not the paused ) are treated in the 
+	  count, so the remaining time is the real time until the download is ready
+	+ Modify the completedMB : only the segments to be downloaded are counted (ie not the paused), so 
+	  the completed cant be greather than the total
+	+ Modify completion (same reasons as above)
+	* Fixed connect retry : when connect is OK, the ConnectAttempts must be reseted
+	+ Migrate to .NET 2.0
+	* fix divide by zero error
+
 2005 Oct 23 - v0.50
 	* [Bug #4053] Fixed edit menu add/edit/delete to be disabled when connected
 	* [Bug #4072] Fixed the Disconnect on idle not being set properly

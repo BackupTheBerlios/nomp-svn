@@ -63,6 +63,11 @@ namespace NZB_O_Matic
 
 		public static string m_CurrentDirectory = string.Copy(System.Environment.CurrentDirectory) + @"\";
 
+		//penndu
+		public static string m_CacheDirectory;
+		public static string m_DownloadDirectory;
+		public static string m_DataDirectory;
+
 		// Number of collums for status items
 		public const int ConnectionListCols = 5;
 		public const int ServerListCols = 7;
@@ -75,5 +80,7 @@ namespace NZB_O_Matic
 		public static IEngine Engine;
 
 		public static CEventLogEngine ConnectionLog;
+		
+
 	}
 }

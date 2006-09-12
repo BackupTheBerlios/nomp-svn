@@ -549,7 +549,7 @@ namespace NZB_O_Matic
 			m_ArticleID = articleid;
 			m_Article = article;
 
-			Downloaded = System.IO.File.Exists( System.IO.Path.GetFullPath("Cache/" + articleid));
+			Downloaded = System.IO.File.Exists( System.IO.Path.GetFullPath(Global.m_CacheDirectory + articleid));
 		}
 	}
 }

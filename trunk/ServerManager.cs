@@ -61,13 +61,18 @@ namespace NZB_O_Matic
 				double done = 0;
 				double totseg = 0;
 				for(int i = 0; i < m_Articles.Count; i++)
-					for(int j = 0; j < ((Article)m_Articles[i]).Segments.Count; j++)
+				{
+					if (((Article)m_Articles[i]).Status != ArticleStatus.Paused &&
+						((Article)m_Articles[i]).Status != ArticleStatus.Deleted )
 					{
-						totseg++;
-						if(((Segment)((Article)m_Articles[i]).Segments[j]).Downloaded)
-							done++;
+						for(int j = 0; j < ((Article)m_Articles[i]).Segments.Count; j++)
+						{
+							totseg++;
+							if(((Segment)((Article)m_Articles[i]).Segments[j]).Downloaded)
+								done++;
+						}
 					}
-
+				}
 				if(done == 0)
 					return 0;
 
@@ -81,8 +86,11 @@ namespace NZB_O_Matic
 			{
 				double total = 0;
 				for(int i = 0; i < m_Articles.Count; i++)
+				{
+					if (((Article)m_Articles[i]).Status != ArticleStatus.Paused &&
+						((Article)m_Articles[i]).Status != ArticleStatus.Deleted)
 					total += ((Article)m_Articles[i]).Size;
-
+				}
 				return ((total/1024)/1024);
 			}
 		}
@@ -94,17 +102,20 @@ namespace NZB_O_Matic
 				double total = 0;
 				for(int i = 0; i < m_Articles.Count; i++)
 				{
-					double tot = 0;
-					double done = 0;
-					for(int j = 0; j < ((Article)m_Articles[i]).Segments.Count; j++)
+					if (((Article)m_Articles[i]).Status != ArticleStatus.Paused &&
+						((Article)m_Articles[i]).Status != ArticleStatus.Deleted)
 					{
-						tot++;
-						if(((Segment)((Article)m_Articles[i]).Segments[j]).Downloaded)
-							done++;
+						double tot = 0;
+						double done = 0;
+						for(int j = 0; j < ((Article)m_Articles[i]).Segments.Count; j++)
+						{
+							tot++;
+							if(((Segment)((Article)m_Articles[i]).Segments[j]).Downloaded)
+								done++;
+						}
+						total += (((Article)m_Articles[i]).Size * (done/tot));
 					}
-					total += (((Article)m_Articles[i]).Size * (done/tot));
 				}
-
 				return ((total/1024)/1024);
 			}
 		}
@@ -217,7 +228,9 @@ namespace NZB_O_Matic
 		{
 			// This is the function that you'd change to fill with more inteligence	for pre-sorting
 			foreach(Article article in m_Articles)
-				if(article.Status == ArticleStatus.Queued)
+				if(article.Status == ArticleStatus.Queued || 
+					     article.Status == ArticleStatus.Downloading)
+			//don't forget article beeing donloading
 					foreach(Segment segment in article.Segments)
 						if(!segment.Downloaded)
 						{
@@ -276,6 +289,7 @@ namespace NZB_O_Matic
 				else if(index - 1 < 0)
 					m_Articles.Insert(0, article);
 			}
+			RebuildQueue();
 		}
 
 		public void MoveArticlesDown(ArrayList toMove)
@@ -290,6 +304,7 @@ namespace NZB_O_Matic
 				else
 					m_Articles.Insert(index + 1, article);
 			}
+			RebuildQueue();
 		}
 
 		public void MoveArticlesBottom(ArrayList toMove)
@@ -299,6 +314,7 @@ namespace NZB_O_Matic
 				m_Articles.Remove(article);
 				m_Articles.Add(article);
 			}
+			RebuildQueue();
 		}
 
 		public void DeleteArticle(Article article)
@@ -331,8 +347,11 @@ namespace NZB_O_Matic
 					{
 						try
 						{
-							if(System.IO.File.Exists(System.IO.Path.GetFullPath("Cache\\" + segment.ArticleID)))
+/*							if(System.IO.File.Exists(System.IO.Path.GetFullPath("Cache\\" + segment.ArticleID)))
 								System.IO.File.Delete(System.IO.Path.GetFullPath("Cache\\" + segment.ArticleID));
+*/
+							if(System.IO.File.Exists(System.IO.Path.GetFullPath(Global.m_CacheDirectory + segment.ArticleID)))
+								System.IO.File.Delete(System.IO.Path.GetFullPath(Global.m_CacheDirectory + segment.ArticleID));
 						}
 						catch(Exception q)
 						{
