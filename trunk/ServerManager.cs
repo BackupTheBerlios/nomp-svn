@@ -195,7 +195,13 @@ namespace NZB_O_Matic
 							NeedsGroup = (XmlServer.SelectSingleNode("needsgroup").InnerText.ToLower() == "true");
 						}
 
-						Server server = servergroup.AddServer(new Server(Address, Port, Connections, RequiresLogin, Username, Password, NeedsGroup));
+                        bool UseSSL = false;
+                        if (XmlServer.SelectSingleNode("ssl") != null)
+                        {
+                            UseSSL = (XmlServer.SelectSingleNode("ssl").InnerText.ToLower() == "true");
+                        }
+
+						Server server = servergroup.AddServer(new Server(Address, Port, Connections, RequiresLogin, Username, Password, NeedsGroup, UseSSL));
 						if(XmlServer.Attributes.GetNamedItem("enabled") != null)
 							if(!bool.Parse(XmlServer.Attributes.GetNamedItem("enabled").InnerText))
 								DisableServer(server);

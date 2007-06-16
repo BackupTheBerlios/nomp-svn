@@ -70,7 +70,7 @@ namespace NZB_O_Matic
 
 		// Number of collums for status items
 		public const int ConnectionListCols = 5;
-		public const int ServerListCols = 7;
+		public const int ServerListCols = 8;
 		public const int ArticleListCols = 6;
 
 		public static string Name;

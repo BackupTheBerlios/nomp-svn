@@ -17,6 +17,7 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace NZB_O_Matic
 {
@@ -317,7 +318,26 @@ namespace NZB_O_Matic
 			}
 		}
 
+		
+		private delegate void UIDelegate(int num, object text);
+		private UIDelegate uiDelegate;
+		private ListView _listViewControl;
+
+		public ListView ListViewControl
+		{
+			set
+			{
+				_listViewControl = value;
+			}
+		}
+
+		private Article()
+		{
+			uiDelegate = new UIDelegate(this.SetSubItem);
+		}
+
 		public Article( string Subject, DateTime Date, string Poster, string[] Groups, string ImportFile)
+			: this()
 		{
 			m_Subject = Subject;
 			m_Date = Date;
@@ -454,10 +474,18 @@ namespace NZB_O_Matic
 
 		private void SetSubItem(int num, object text)
 		{
-			lock(m_StatusItem)
+			if ((this._listViewControl != null) && (this._listViewControl.InvokeRequired))
 			{
-				if(m_StatusItem.SubItems[num].Text != text.ToString())
-					m_StatusItem.SubItems[num].Text = text.ToString();
+				object[] parms = { num, text };
+				this._listViewControl.Invoke(this.uiDelegate, parms);
+			}
+			else
+			{
+				lock (m_StatusItem)
+				{
+					if (m_StatusItem.SubItems[num].Text != text.ToString())
+						m_StatusItem.SubItems[num].Text = text.ToString();
+				}
 			}
 		}
 	}
@@ -553,3 +581,4 @@ namespace NZB_O_Matic
 		}
 	}
 }
+

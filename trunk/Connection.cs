@@ -32,6 +32,7 @@ namespace NZB_O_Matic
 
 		private string m_Hostname;
 		private int m_Port;
+        private bool m_UseSSL;
 
 		private bool m_RequiresLogin;
 		private string m_Username;
@@ -178,12 +179,13 @@ namespace NZB_O_Matic
 		/// <param name="requireslogin">Server requires authentication</param>
 		/// <param name="username">Username to log in with ("" for none)</param>
 		/// <param name="password">Password to log in with ("" for none)</param>
-		public Connection( int id, string hostname, int port, bool requireslogin, string username, string password)
+		public Connection( int id, string hostname, int port, bool requireslogin, string username, string password, bool ssl)
 		{
 			m_ID = id;
 
 			m_Hostname = hostname;
 			m_Port = port;
+            m_UseSSL = ssl;
 
 			m_RequiresLogin = requireslogin;
 			m_Username = username;
@@ -344,7 +346,7 @@ namespace NZB_O_Matic
 			try
 			{
 				m_Status = "Connecting...";
-				m_NNTP.Connect( m_Hostname, m_Port);
+				m_NNTP.Connect( m_Hostname, m_Port, m_UseSSL);
 
 				if(m_RequiresLogin)
 				{

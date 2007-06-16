@@ -177,6 +177,7 @@ namespace NZB_O_Matic
 		private System.Windows.Forms.MenuItem Context_Delete;
 		private System.Windows.Forms.MenuItem menuItem2;
 		private System.Windows.Forms.MenuItem Context_Prune;
+        private ColumnHeader chSSL;
 		private ServerManager m_ServerManager;
 		#endregion 
 
@@ -272,889 +273,924 @@ namespace NZB_O_Matic
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(frmMain));
-			this.OpenFile_ImportNZB = new System.Windows.Forms.OpenFileDialog();
-			this.Icon_Tray = new System.Windows.Forms.NotifyIcon(this.components);
-			this.ContextMenu_Icon = new System.Windows.Forms.ContextMenu();
-			this.Context_Connect = new System.Windows.Forms.MenuItem();
-			this.Context_Disconnect = new System.Windows.Forms.MenuItem();
-			this.Context_Divider1 = new System.Windows.Forms.MenuItem();
-			this.Context_Exit = new System.Windows.Forms.MenuItem();
-			this.MainMenu_Main = new System.Windows.Forms.MainMenu();
-			this.Menu_Main_File = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_File_Connect = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_File_Disconnect = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_File_Divider1 = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_File_ImportNZB = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_File_Divider2 = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_File_Exit = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Edit = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Edit_AddServer = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Edit_EditServer = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Edit_DeleteServer = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Edit_Divider1 = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Edit_DeleteArticle = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Edit_DecodeArticle = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Options = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Options_Reset = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Options_ClearCache = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Options_Exit = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_SaveWindowStatus = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Options_Divider1 = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Options_Prefernces = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Help = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Help_Update = new System.Windows.Forms.MenuItem();
-			this.Menu_Main_Help_About = new System.Windows.Forms.MenuItem();
-			this.Update_Timer = new System.Windows.Forms.Timer(this.components);
-			this.Main_StatusBar = new System.Windows.Forms.StatusBar();
-			this.Panel_Connections = new System.Windows.Forms.Panel();
-			this.lvConnections = new System.Windows.Forms.ListView();
-			this.chServer = new System.Windows.Forms.ColumnHeader();
-			this.chID = new System.Windows.Forms.ColumnHeader();
-			this.chConnStatus = new System.Windows.Forms.ColumnHeader();
-			this.chProgress = new System.Windows.Forms.ColumnHeader();
-			this.chSpeed = new System.Windows.Forms.ColumnHeader();
-			this.ContextMenu_Queue = new System.Windows.Forms.ContextMenu();
-			this.Context_MoveUp = new System.Windows.Forms.MenuItem();
-			this.Context_MoveDown = new System.Windows.Forms.MenuItem();
-			this.Context_Divider2 = new System.Windows.Forms.MenuItem();
-			this.Context_MoveTop = new System.Windows.Forms.MenuItem();
-			this.Context_MoveBottom = new System.Windows.Forms.MenuItem();
-			this.Context_Divider3 = new System.Windows.Forms.MenuItem();
-			this.Context_Decode = new System.Windows.Forms.MenuItem();
-			this.Context_Pause = new System.Windows.Forms.MenuItem();
-			this.Splitter_Lists = new System.Windows.Forms.Splitter();
-			this.Save_Log = new System.Windows.Forms.SaveFileDialog();
-			this.TabPage_Servers = new System.Windows.Forms.TabPage();
-			this.lvServers = new System.Windows.Forms.ListView();
-			this.chServerGroup = new System.Windows.Forms.ColumnHeader();
-			this.chAddress = new System.Windows.Forms.ColumnHeader();
-			this.chPort = new System.Windows.Forms.ColumnHeader();
-			this.chConnections = new System.Windows.Forms.ColumnHeader();
-			this.chRequiresLogin = new System.Windows.Forms.ColumnHeader();
-			this.chUsername = new System.Windows.Forms.ColumnHeader();
-			this.chPassword = new System.Windows.Forms.ColumnHeader();
-			this.Panel_ServerButtons = new System.Windows.Forms.Panel();
-			this.Button_Disconnect = new System.Windows.Forms.Button();
-			this.Button_Connect = new System.Windows.Forms.Button();
-			this.Button_EditServer = new System.Windows.Forms.Button();
-			this.Button_DeleteServer = new System.Windows.Forms.Button();
-			this.Button_AddServer = new System.Windows.Forms.Button();
-			this.TabPage_Queue = new System.Windows.Forms.TabPage();
-			this.lvArticles = new System.Windows.Forms.ListView();
-			this.chArticle = new System.Windows.Forms.ColumnHeader();
-			this.chSize = new System.Windows.Forms.ColumnHeader();
-			this.chParts = new System.Windows.Forms.ColumnHeader();
-			this.chStatus = new System.Windows.Forms.ColumnHeader();
-			this.chDate = new System.Windows.Forms.ColumnHeader();
-			this.chGroups = new System.Windows.Forms.ColumnHeader();
-			this.Panel_QueueButtons = new System.Windows.Forms.Panel();
-			this.ButtonDecodeIncomplete = new System.Windows.Forms.Button();
-			this.setIncompleteToQueuedButton = new System.Windows.Forms.Button();
-			this.Button_Bottom = new System.Windows.Forms.Button();
-			this.Button_Down = new System.Windows.Forms.Button();
-			this.Button_Up = new System.Windows.Forms.Button();
-			this.Button_Top = new System.Windows.Forms.Button();
-			this.Button_Prune = new System.Windows.Forms.Button();
-			this.Button_DeleteQueue = new System.Windows.Forms.Button();
-			this.Button_ImportNZB = new System.Windows.Forms.Button();
-			this.TabPage_Status = new System.Windows.Forms.TabPage();
-			this.List_StatusLog = new System.Windows.Forms.ListBox();
-			this.Panel_LogButtons = new System.Windows.Forms.Panel();
-			this.Button_ClearLog = new System.Windows.Forms.Button();
-			this.Button_SaveLog = new System.Windows.Forms.Button();
-			this.TabControl_Main = new System.Windows.Forms.TabControl();
-			this.Context_Delete = new System.Windows.Forms.MenuItem();
-			this.menuItem2 = new System.Windows.Forms.MenuItem();
-			this.Context_Prune = new System.Windows.Forms.MenuItem();
-			this.Panel_Connections.SuspendLayout();
-			this.TabPage_Servers.SuspendLayout();
-			this.Panel_ServerButtons.SuspendLayout();
-			this.TabPage_Queue.SuspendLayout();
-			this.Panel_QueueButtons.SuspendLayout();
-			this.TabPage_Status.SuspendLayout();
-			this.Panel_LogButtons.SuspendLayout();
-			this.TabControl_Main.SuspendLayout();
-			this.SuspendLayout();
-			// 
-			// OpenFile_ImportNZB
-			// 
-			this.OpenFile_ImportNZB.Filter = "NZB files|*.nzb";
-			this.OpenFile_ImportNZB.Multiselect = true;
-			this.OpenFile_ImportNZB.RestoreDirectory = true;
-			this.OpenFile_ImportNZB.Title = "Import NZB file";
-			// 
-			// Icon_Tray
-			// 
-			this.Icon_Tray.ContextMenu = this.ContextMenu_Icon;
-			this.Icon_Tray.Icon = ((System.Drawing.Icon)(resources.GetObject("Icon_Tray.Icon")));
-			this.Icon_Tray.Text = "NZB-O-Matic";
-			this.Icon_Tray.Visible = true;
-			this.Icon_Tray.Click += new System.EventHandler(this.Icon_Tray_Click);
-			// 
-			// ContextMenu_Icon
-			// 
-			this.ContextMenu_Icon.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																							 this.Context_Connect,
-																							 this.Context_Disconnect,
-																							 this.Context_Divider1,
-																							 this.Context_Exit});
-			// 
-			// Context_Connect
-			// 
-			this.Context_Connect.Index = 0;
-			this.Context_Connect.Text = "Connect";
-			this.Context_Connect.Click += new System.EventHandler(this.Context_Connect_Click);
-			// 
-			// Context_Disconnect
-			// 
-			this.Context_Disconnect.Enabled = false;
-			this.Context_Disconnect.Index = 1;
-			this.Context_Disconnect.Text = "Disconnect";
-			this.Context_Disconnect.Click += new System.EventHandler(this.Context_Disconnect_Click);
-			// 
-			// Context_Divider1
-			// 
-			this.Context_Divider1.Index = 2;
-			this.Context_Divider1.Text = "-";
-			// 
-			// Context_Exit
-			// 
-			this.Context_Exit.Index = 3;
-			this.Context_Exit.Text = "Exit";
-			this.Context_Exit.Click += new System.EventHandler(this.Context_Exit_Click);
-			// 
-			// MainMenu_Main
-			// 
-			this.MainMenu_Main.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																						  this.Menu_Main_File,
-																						  this.Menu_Main_Edit,
-																						  this.Menu_Main_Options,
-																						  this.Menu_Main_Help});
-			// 
-			// Menu_Main_File
-			// 
-			this.Menu_Main_File.Index = 0;
-			this.Menu_Main_File.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																						   this.Menu_Main_File_Connect,
-																						   this.Menu_Main_File_Disconnect,
-																						   this.Menu_Main_File_Divider1,
-																						   this.Menu_Main_File_ImportNZB,
-																						   this.Menu_Main_File_Divider2,
-																						   this.Menu_Main_File_Exit});
-			this.Menu_Main_File.Text = "File";
-			// 
-			// Menu_Main_File_Connect
-			// 
-			this.Menu_Main_File_Connect.Index = 0;
-			this.Menu_Main_File_Connect.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftC;
-			this.Menu_Main_File_Connect.Text = "Connect";
-			this.Menu_Main_File_Connect.Click += new System.EventHandler(this.Menu_Main_File_Connect_Click);
-			// 
-			// Menu_Main_File_Disconnect
-			// 
-			this.Menu_Main_File_Disconnect.Enabled = false;
-			this.Menu_Main_File_Disconnect.Index = 1;
-			this.Menu_Main_File_Disconnect.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftD;
-			this.Menu_Main_File_Disconnect.Text = "Disconnect";
-			this.Menu_Main_File_Disconnect.Click += new System.EventHandler(this.Menu_Main_File_Disconnect_Click);
-			// 
-			// Menu_Main_File_Divider1
-			// 
-			this.Menu_Main_File_Divider1.Index = 2;
-			this.Menu_Main_File_Divider1.Text = "-";
-			// 
-			// Menu_Main_File_ImportNZB
-			// 
-			this.Menu_Main_File_ImportNZB.Index = 3;
-			this.Menu_Main_File_ImportNZB.Text = "Import nzb...";
-			this.Menu_Main_File_ImportNZB.Click += new System.EventHandler(this.Menu_Main_File_ImportNZB_Click);
-			// 
-			// Menu_Main_File_Divider2
-			// 
-			this.Menu_Main_File_Divider2.Index = 4;
-			this.Menu_Main_File_Divider2.Text = "-";
-			// 
-			// Menu_Main_File_Exit
-			// 
-			this.Menu_Main_File_Exit.Index = 5;
-			this.Menu_Main_File_Exit.Text = "Exit";
-			this.Menu_Main_File_Exit.Click += new System.EventHandler(this.Menu_Main_File_Exit_Click);
-			// 
-			// Menu_Main_Edit
-			// 
-			this.Menu_Main_Edit.Index = 1;
-			this.Menu_Main_Edit.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																						   this.Menu_Main_Edit_AddServer,
-																						   this.Menu_Main_Edit_EditServer,
-																						   this.Menu_Main_Edit_DeleteServer,
-																						   this.Menu_Main_Edit_Divider1,
-																						   this.Menu_Main_Edit_DeleteArticle,
-																						   this.Menu_Main_Edit_DecodeArticle});
-			this.Menu_Main_Edit.Text = "Edit";
-			// 
-			// Menu_Main_Edit_AddServer
-			// 
-			this.Menu_Main_Edit_AddServer.Index = 0;
-			this.Menu_Main_Edit_AddServer.Text = "Add Server";
-			this.Menu_Main_Edit_AddServer.Click += new System.EventHandler(this.Menu_Main_Edit_AddServer_Click);
-			// 
-			// Menu_Main_Edit_EditServer
-			// 
-			this.Menu_Main_Edit_EditServer.Index = 1;
-			this.Menu_Main_Edit_EditServer.Text = "Edit Server";
-			this.Menu_Main_Edit_EditServer.Click += new System.EventHandler(this.Menu_Main_Edit_EditServer_Click);
-			// 
-			// Menu_Main_Edit_DeleteServer
-			// 
-			this.Menu_Main_Edit_DeleteServer.Index = 2;
-			this.Menu_Main_Edit_DeleteServer.Text = "Delete Server";
-			this.Menu_Main_Edit_DeleteServer.Click += new System.EventHandler(this.Menu_Main_Edit_DeleteServer_Click);
-			// 
-			// Menu_Main_Edit_Divider1
-			// 
-			this.Menu_Main_Edit_Divider1.Index = 3;
-			this.Menu_Main_Edit_Divider1.Text = "-";
-			// 
-			// Menu_Main_Edit_DeleteArticle
-			// 
-			this.Menu_Main_Edit_DeleteArticle.Index = 4;
-			this.Menu_Main_Edit_DeleteArticle.Text = "Delete Article";
-			this.Menu_Main_Edit_DeleteArticle.Click += new System.EventHandler(this.Menu_Main_Edit_DeleteArticle_Click);
-			// 
-			// Menu_Main_Edit_DecodeArticle
-			// 
-			this.Menu_Main_Edit_DecodeArticle.Index = 5;
-			this.Menu_Main_Edit_DecodeArticle.Text = "Decode Article";
-			this.Menu_Main_Edit_DecodeArticle.Click += new System.EventHandler(this.Menu_Main_Edit_DecodeArticle_Click);
-			// 
-			// Menu_Main_Options
-			// 
-			this.Menu_Main_Options.Index = 2;
-			this.Menu_Main_Options.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																							  this.Menu_Main_Options_Reset,
-																							  this.Menu_Main_Options_ClearCache,
-																							  this.Menu_Main_Options_Exit,
-																							  this.Menu_Main_SaveWindowStatus,
-																							  this.Menu_Main_Options_Divider1,
-																							  this.Menu_Main_Options_Prefernces});
-			this.Menu_Main_Options.Text = "Options";
-			// 
-			// Menu_Main_Options_Reset
-			// 
-			this.Menu_Main_Options_Reset.Index = 0;
-			this.Menu_Main_Options_Reset.Text = "Reset Download Total";
-			this.Menu_Main_Options_Reset.Click += new System.EventHandler(this.Menu_Main_Options_Reset_Click);
-			// 
-			// Menu_Main_Options_ClearCache
-			// 
-			this.Menu_Main_Options_ClearCache.Index = 1;
-			this.Menu_Main_Options_ClearCache.Text = "Empty Cache";
-			this.Menu_Main_Options_ClearCache.Click += new System.EventHandler(this.Menu_Main_Options_ClearCache_Click);
-			// 
-			// Menu_Main_Options_Exit
-			// 
-			this.Menu_Main_Options_Exit.Index = 2;
-			this.Menu_Main_Options_Exit.Text = "Exit on completion";
-			this.Menu_Main_Options_Exit.Click += new System.EventHandler(this.Menu_Main_Options_Exit_Click);
-			// 
-			// Menu_Main_SaveWindowStatus
-			// 
-			this.Menu_Main_SaveWindowStatus.Checked = true;
-			this.Menu_Main_SaveWindowStatus.Index = 3;
-			this.Menu_Main_SaveWindowStatus.Text = "Save window status";
-			this.Menu_Main_SaveWindowStatus.Click += new System.EventHandler(this.Menu_Main_SaveWindowStatus_Click);
-			// 
-			// Menu_Main_Options_Divider1
-			// 
-			this.Menu_Main_Options_Divider1.Index = 4;
-			this.Menu_Main_Options_Divider1.Text = "-";
-			// 
-			// Menu_Main_Options_Prefernces
-			// 
-			this.Menu_Main_Options_Prefernces.Index = 5;
-			this.Menu_Main_Options_Prefernces.Text = "Preferences";
-			this.Menu_Main_Options_Prefernces.Click += new System.EventHandler(this.Menu_Main_Options_Prefernces_Click);
-			// 
-			// Menu_Main_Help
-			// 
-			this.Menu_Main_Help.Index = 3;
-			this.Menu_Main_Help.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																						   this.Menu_Main_Help_Update,
-																						   this.Menu_Main_Help_About});
-			this.Menu_Main_Help.Text = "Help";
-			// 
-			// Menu_Main_Help_Update
-			// 
-			this.Menu_Main_Help_Update.Index = 0;
-			this.Menu_Main_Help_Update.Text = "Update";
-			this.Menu_Main_Help_Update.Click += new System.EventHandler(this.Menu_Main_Help_Update_Click);
-			// 
-			// Menu_Main_Help_About
-			// 
-			this.Menu_Main_Help_About.Index = 1;
-			this.Menu_Main_Help_About.Text = "About";
-			this.Menu_Main_Help_About.Click += new System.EventHandler(this.Menu_Main_Help_About_Click);
-			// 
-			// Update_Timer
-			// 
-			this.Update_Timer.Enabled = true;
-			this.Update_Timer.Interval = 500;
-			this.Update_Timer.Tick += new System.EventHandler(this.Update_Timer_Tick);
-			// 
-			// Main_StatusBar
-			// 
-			this.Main_StatusBar.Location = new System.Drawing.Point(0, 429);
-			this.Main_StatusBar.Name = "Main_StatusBar";
-			this.Main_StatusBar.ShowPanels = true;
-			this.Main_StatusBar.Size = new System.Drawing.Size(542, 16);
-			this.Main_StatusBar.TabIndex = 7;
-			this.Main_StatusBar.Text = "StatusBar";
-			// 
-			// Panel_Connections
-			// 
-			this.Panel_Connections.Controls.Add(this.lvConnections);
-			this.Panel_Connections.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.Panel_Connections.Location = new System.Drawing.Point(0, 329);
-			this.Panel_Connections.Name = "Panel_Connections";
-			this.Panel_Connections.Size = new System.Drawing.Size(542, 100);
-			this.Panel_Connections.TabIndex = 12;
-			// 
-			// lvConnections
-			// 
-			this.lvConnections.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-																							this.chServer,
-																							this.chID,
-																							this.chConnStatus,
-																							this.chProgress,
-																							this.chSpeed});
-			this.lvConnections.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lvConnections.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-			this.lvConnections.Location = new System.Drawing.Point(0, 0);
-			this.lvConnections.Name = "lvConnections";
-			this.lvConnections.Size = new System.Drawing.Size(542, 100);
-			this.lvConnections.TabIndex = 11;
-			this.lvConnections.View = System.Windows.Forms.View.Details;
-			// 
-			// chServer
-			// 
-			this.chServer.Text = "Server";
-			this.chServer.Width = 124;
-			// 
-			// chID
-			// 
-			this.chID.Text = "#";
-			this.chID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.chID.Width = 23;
-			// 
-			// chConnStatus
-			// 
-			this.chConnStatus.Text = "Status";
-			this.chConnStatus.Width = 161;
-			// 
-			// chProgress
-			// 
-			this.chProgress.Text = "Progress";
-			this.chProgress.Width = 124;
-			// 
-			// chSpeed
-			// 
-			this.chSpeed.Text = "Speed";
-			// 
-			// ContextMenu_Queue
-			// 
-			this.ContextMenu_Queue.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																							  this.Context_MoveUp,
-																							  this.Context_MoveDown,
-																							  this.Context_Divider2,
-																							  this.Context_MoveTop,
-																							  this.Context_MoveBottom,
-																							  this.Context_Divider3,
-																							  this.Context_Decode,
-																							  this.Context_Pause,
-																							  this.Context_Delete,
-																							  this.menuItem2,
-																							  this.Context_Prune});
-			// 
-			// Context_MoveUp
-			// 
-			this.Context_MoveUp.Index = 0;
-			this.Context_MoveUp.Text = "Move Up";
-			this.Context_MoveUp.Click += new System.EventHandler(this.Context_MoveUp_Click);
-			// 
-			// Context_MoveDown
-			// 
-			this.Context_MoveDown.Index = 1;
-			this.Context_MoveDown.Text = "Move Down";
-			this.Context_MoveDown.Click += new System.EventHandler(this.Context_MoveDown_Click);
-			// 
-			// Context_Divider2
-			// 
-			this.Context_Divider2.Index = 2;
-			this.Context_Divider2.Text = "-";
-			// 
-			// Context_MoveTop
-			// 
-			this.Context_MoveTop.Index = 3;
-			this.Context_MoveTop.Text = "Move to Top";
-			this.Context_MoveTop.Click += new System.EventHandler(this.Context_MoveTop_Click);
-			// 
-			// Context_MoveBottom
-			// 
-			this.Context_MoveBottom.Index = 4;
-			this.Context_MoveBottom.Text = "Move to Bottom";
-			this.Context_MoveBottom.Click += new System.EventHandler(this.Context_MoveBottom_Click);
-			// 
-			// Context_Divider3
-			// 
-			this.Context_Divider3.Index = 5;
-			this.Context_Divider3.Text = "-";
-			// 
-			// Context_Decode
-			// 
-			this.Context_Decode.Index = 6;
-			this.Context_Decode.Text = "Decode";
-			this.Context_Decode.Click += new System.EventHandler(this.Context_Decode_Click);
-			// 
-			// Context_Pause
-			// 
-			this.Context_Pause.Index = 7;
-			this.Context_Pause.Text = "Pause";
-			this.Context_Pause.Click += new System.EventHandler(this.Context_Pause_Click_1);
-			// 
-			// Splitter_Lists
-			// 
-			this.Splitter_Lists.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.Splitter_Lists.Location = new System.Drawing.Point(0, 326);
-			this.Splitter_Lists.Name = "Splitter_Lists";
-			this.Splitter_Lists.Size = new System.Drawing.Size(542, 3);
-			this.Splitter_Lists.TabIndex = 14;
-			this.Splitter_Lists.TabStop = false;
-			// 
-			// Save_Log
-			// 
-			this.Save_Log.Filter = "(Text files)|*.txt";
-			// 
-			// TabPage_Servers
-			// 
-			this.TabPage_Servers.Controls.Add(this.lvServers);
-			this.TabPage_Servers.Controls.Add(this.Panel_ServerButtons);
-			this.TabPage_Servers.Location = new System.Drawing.Point(4, 22);
-			this.TabPage_Servers.Name = "TabPage_Servers";
-			this.TabPage_Servers.Size = new System.Drawing.Size(534, 303);
-			this.TabPage_Servers.TabIndex = 0;
-			this.TabPage_Servers.Text = "Usenet Servers";
-			// 
-			// lvServers
-			// 
-			this.lvServers.CheckBoxes = true;
-			this.lvServers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-																						this.chServerGroup,
-																						this.chAddress,
-																						this.chPort,
-																						this.chConnections,
-																						this.chRequiresLogin,
-																						this.chUsername,
-																						this.chPassword});
-			this.lvServers.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lvServers.FullRowSelect = true;
-			this.lvServers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-			this.lvServers.Location = new System.Drawing.Point(0, 32);
-			this.lvServers.MultiSelect = false;
-			this.lvServers.Name = "lvServers";
-			this.lvServers.Size = new System.Drawing.Size(534, 271);
-			this.lvServers.TabIndex = 3;
-			this.lvServers.View = System.Windows.Forms.View.Details;
-			this.lvServers.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvServers_KeyDown);
-			this.lvServers.ItemActivate += new System.EventHandler(this.lvServers_ItemActivate);
-			this.lvServers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lvServers_ItemCheck);
-			// 
-			// chServerGroup
-			// 
-			this.chServerGroup.Text = "Group";
-			this.chServerGroup.Width = 42;
-			// 
-			// chAddress
-			// 
-			this.chAddress.Text = "Address";
-			this.chAddress.Width = 118;
-			// 
-			// chPort
-			// 
-			this.chPort.Text = "Port";
-			this.chPort.Width = 32;
-			// 
-			// chConnections
-			// 
-			this.chConnections.Text = "Connections";
-			this.chConnections.Width = 73;
-			// 
-			// chRequiresLogin
-			// 
-			this.chRequiresLogin.Text = "Requires Login";
-			this.chRequiresLogin.Width = 85;
-			// 
-			// chUsername
-			// 
-			this.chUsername.Text = "Username";
-			// 
-			// chPassword
-			// 
-			this.chPassword.Text = "Password";
-			// 
-			// Panel_ServerButtons
-			// 
-			this.Panel_ServerButtons.BackColor = System.Drawing.SystemColors.Control;
-			this.Panel_ServerButtons.Controls.Add(this.Button_Disconnect);
-			this.Panel_ServerButtons.Controls.Add(this.Button_Connect);
-			this.Panel_ServerButtons.Controls.Add(this.Button_EditServer);
-			this.Panel_ServerButtons.Controls.Add(this.Button_DeleteServer);
-			this.Panel_ServerButtons.Controls.Add(this.Button_AddServer);
-			this.Panel_ServerButtons.Dock = System.Windows.Forms.DockStyle.Top;
-			this.Panel_ServerButtons.Location = new System.Drawing.Point(0, 0);
-			this.Panel_ServerButtons.Name = "Panel_ServerButtons";
-			this.Panel_ServerButtons.Size = new System.Drawing.Size(534, 32);
-			this.Panel_ServerButtons.TabIndex = 2;
-			// 
-			// Button_Disconnect
-			// 
-			this.Button_Disconnect.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_Disconnect.Enabled = false;
-			this.Button_Disconnect.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_Disconnect.Location = new System.Drawing.Point(456, 4);
-			this.Button_Disconnect.Name = "Button_Disconnect";
-			this.Button_Disconnect.TabIndex = 9;
-			this.Button_Disconnect.Text = "Disconnect";
-			this.Button_Disconnect.Click += new System.EventHandler(this.Button_Disconnect_Click);
-			// 
-			// Button_Connect
-			// 
-			this.Button_Connect.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_Connect.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_Connect.Location = new System.Drawing.Point(376, 4);
-			this.Button_Connect.Name = "Button_Connect";
-			this.Button_Connect.TabIndex = 8;
-			this.Button_Connect.Text = "Connect";
-			this.Button_Connect.Click += new System.EventHandler(this.Button_Connect_Click);
-			// 
-			// Button_EditServer
-			// 
-			this.Button_EditServer.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_EditServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_EditServer.Location = new System.Drawing.Point(88, 4);
-			this.Button_EditServer.Name = "Button_EditServer";
-			this.Button_EditServer.TabIndex = 6;
-			this.Button_EditServer.Text = "Edit Server";
-			this.Button_EditServer.Click += new System.EventHandler(this.Button_EditServer_Click);
-			// 
-			// Button_DeleteServer
-			// 
-			this.Button_DeleteServer.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_DeleteServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_DeleteServer.Location = new System.Drawing.Point(168, 4);
-			this.Button_DeleteServer.Name = "Button_DeleteServer";
-			this.Button_DeleteServer.TabIndex = 7;
-			this.Button_DeleteServer.Text = "Delete";
-			this.Button_DeleteServer.Click += new System.EventHandler(this.Button_DeleteServer_Click);
-			// 
-			// Button_AddServer
-			// 
-			this.Button_AddServer.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_AddServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_AddServer.Location = new System.Drawing.Point(7, 4);
-			this.Button_AddServer.Name = "Button_AddServer";
-			this.Button_AddServer.TabIndex = 5;
-			this.Button_AddServer.Text = "Add Server";
-			this.Button_AddServer.Click += new System.EventHandler(this.Button_AddServer_Click);
-			// 
-			// TabPage_Queue
-			// 
-			this.TabPage_Queue.Controls.Add(this.lvArticles);
-			this.TabPage_Queue.Controls.Add(this.Panel_QueueButtons);
-			this.TabPage_Queue.Location = new System.Drawing.Point(4, 22);
-			this.TabPage_Queue.Name = "TabPage_Queue";
-			this.TabPage_Queue.Size = new System.Drawing.Size(534, 303);
-			this.TabPage_Queue.TabIndex = 1;
-			this.TabPage_Queue.Text = "Transfer Queue";
-			this.TabPage_Queue.Visible = false;
-			// 
-			// lvArticles
-			// 
-			this.lvArticles.AllowColumnReorder = true;
-			this.lvArticles.AllowDrop = true;
-			this.lvArticles.BackColor = System.Drawing.Color.White;
-			this.lvArticles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-																						 this.chArticle,
-																						 this.chSize,
-																						 this.chParts,
-																						 this.chStatus,
-																						 this.chDate,
-																						 this.chGroups});
-			this.lvArticles.ContextMenu = this.ContextMenu_Queue;
-			this.lvArticles.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lvArticles.FullRowSelect = true;
-			this.lvArticles.HideSelection = false;
-			this.lvArticles.Location = new System.Drawing.Point(0, 32);
-			this.lvArticles.Name = "lvArticles";
-			this.lvArticles.Size = new System.Drawing.Size(534, 271);
-			this.lvArticles.TabIndex = 2;
-			this.lvArticles.View = System.Windows.Forms.View.Details;
-			this.lvArticles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvArticles_KeyDown);
-			this.lvArticles.DragDrop += new System.Windows.Forms.DragEventHandler(this.NZBType_DragDrop);
-			this.lvArticles.DragEnter += new System.Windows.Forms.DragEventHandler(this.NZBType_DragEnter);
-			this.lvArticles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvArticles_ColumnClick);
-			this.lvArticles.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lvArticles_ItemCheck);
-			// 
-			// chArticle
-			// 
-			this.chArticle.Text = "Subject";
-			this.chArticle.Width = 163;
-			// 
-			// chSize
-			// 
-			this.chSize.Text = "Size";
-			// 
-			// chParts
-			// 
-			this.chParts.Text = "Parts";
-			// 
-			// chStatus
-			// 
-			this.chStatus.Text = "Status";
-			// 
-			// chDate
-			// 
-			this.chDate.Text = "Date";
-			// 
-			// chGroups
-			// 
-			this.chGroups.Text = "Groups";
-			// 
-			// Panel_QueueButtons
-			// 
-			this.Panel_QueueButtons.Controls.Add(this.ButtonDecodeIncomplete);
-			this.Panel_QueueButtons.Controls.Add(this.setIncompleteToQueuedButton);
-			this.Panel_QueueButtons.Controls.Add(this.Button_Bottom);
-			this.Panel_QueueButtons.Controls.Add(this.Button_Down);
-			this.Panel_QueueButtons.Controls.Add(this.Button_Up);
-			this.Panel_QueueButtons.Controls.Add(this.Button_Top);
-			this.Panel_QueueButtons.Controls.Add(this.Button_Prune);
-			this.Panel_QueueButtons.Controls.Add(this.Button_DeleteQueue);
-			this.Panel_QueueButtons.Controls.Add(this.Button_ImportNZB);
-			this.Panel_QueueButtons.Dock = System.Windows.Forms.DockStyle.Top;
-			this.Panel_QueueButtons.Location = new System.Drawing.Point(0, 0);
-			this.Panel_QueueButtons.Name = "Panel_QueueButtons";
-			this.Panel_QueueButtons.Size = new System.Drawing.Size(534, 32);
-			this.Panel_QueueButtons.TabIndex = 1;
-			// 
-			// ButtonDecodeIncomplete
-			// 
-			this.ButtonDecodeIncomplete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.ButtonDecodeIncomplete.Location = new System.Drawing.Point(358, 4);
-			this.ButtonDecodeIncomplete.Name = "ButtonDecodeIncomplete";
-			this.ButtonDecodeIncomplete.Size = new System.Drawing.Size(64, 23);
-			this.ButtonDecodeIncomplete.TabIndex = 6;
-			this.ButtonDecodeIncomplete.Text = "Decode";
-			this.ButtonDecodeIncomplete.Click += new System.EventHandler(this.ButtonDecodeIncomplete_Click);
-			// 
-			// setIncompleteToQueuedButton
-			// 
-			this.setIncompleteToQueuedButton.BackColor = System.Drawing.SystemColors.Control;
-			this.setIncompleteToQueuedButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.setIncompleteToQueuedButton.Location = new System.Drawing.Point(248, 4);
-			this.setIncompleteToQueuedButton.Name = "setIncompleteToQueuedButton";
-			this.setIncompleteToQueuedButton.Size = new System.Drawing.Size(104, 23);
-			this.setIncompleteToQueuedButton.TabIndex = 5;
-			this.setIncompleteToQueuedButton.Text = "Retry Incompletes";
-			this.setIncompleteToQueuedButton.Click += new System.EventHandler(this.setIncompleteToQueuedButton_Click);
-			// 
-			// Button_Bottom
-			// 
-			this.Button_Bottom.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_Bottom.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_Bottom.Image = ((System.Drawing.Image)(resources.GetObject("Button_Bottom.Image")));
-			this.Button_Bottom.Location = new System.Drawing.Point(504, 4);
-			this.Button_Bottom.Name = "Button_Bottom";
-			this.Button_Bottom.Size = new System.Drawing.Size(23, 23);
-			this.Button_Bottom.TabIndex = 10;
-			this.Button_Bottom.Click += new System.EventHandler(this.Context_MoveBottom_Click);
-			// 
-			// Button_Down
-			// 
-			this.Button_Down.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_Down.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_Down.Image = ((System.Drawing.Image)(resources.GetObject("Button_Down.Image")));
-			this.Button_Down.Location = new System.Drawing.Point(480, 4);
-			this.Button_Down.Name = "Button_Down";
-			this.Button_Down.Size = new System.Drawing.Size(23, 23);
-			this.Button_Down.TabIndex = 9;
-			this.Button_Down.Click += new System.EventHandler(this.Context_MoveDown_Click);
-			// 
-			// Button_Up
-			// 
-			this.Button_Up.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_Up.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_Up.Image = ((System.Drawing.Image)(resources.GetObject("Button_Up.Image")));
-			this.Button_Up.Location = new System.Drawing.Point(456, 4);
-			this.Button_Up.Name = "Button_Up";
-			this.Button_Up.Size = new System.Drawing.Size(23, 23);
-			this.Button_Up.TabIndex = 8;
-			this.Button_Up.Click += new System.EventHandler(this.Context_MoveUp_Click);
-			// 
-			// Button_Top
-			// 
-			this.Button_Top.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_Top.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_Top.Image = ((System.Drawing.Image)(resources.GetObject("Button_Top.Image")));
-			this.Button_Top.Location = new System.Drawing.Point(432, 4);
-			this.Button_Top.Name = "Button_Top";
-			this.Button_Top.Size = new System.Drawing.Size(23, 23);
-			this.Button_Top.TabIndex = 7;
-			this.Button_Top.Click += new System.EventHandler(this.Context_MoveTop_Click);
-			// 
-			// Button_Prune
-			// 
-			this.Button_Prune.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_Prune.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_Prune.Location = new System.Drawing.Point(88, 4);
-			this.Button_Prune.Name = "Button_Prune";
-			this.Button_Prune.TabIndex = 3;
-			this.Button_Prune.Text = "Prune";
-			this.Button_Prune.Click += new System.EventHandler(this.Button_Prune_Click);
-			// 
-			// Button_DeleteQueue
-			// 
-			this.Button_DeleteQueue.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_DeleteQueue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_DeleteQueue.Location = new System.Drawing.Point(168, 4);
-			this.Button_DeleteQueue.Name = "Button_DeleteQueue";
-			this.Button_DeleteQueue.TabIndex = 4;
-			this.Button_DeleteQueue.Text = "Delete";
-			this.Button_DeleteQueue.Click += new System.EventHandler(this.Button_DeleteQueue_Click);
-			// 
-			// Button_ImportNZB
-			// 
-			this.Button_ImportNZB.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_ImportNZB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_ImportNZB.Location = new System.Drawing.Point(7, 4);
-			this.Button_ImportNZB.Name = "Button_ImportNZB";
-			this.Button_ImportNZB.TabIndex = 0;
-			this.Button_ImportNZB.Text = "Import NZB ";
-			this.Button_ImportNZB.Click += new System.EventHandler(this.Button_ImportNZB_Click);
-			// 
-			// TabPage_Status
-			// 
-			this.TabPage_Status.Controls.Add(this.List_StatusLog);
-			this.TabPage_Status.Controls.Add(this.Panel_LogButtons);
-			this.TabPage_Status.Location = new System.Drawing.Point(4, 22);
-			this.TabPage_Status.Name = "TabPage_Status";
-			this.TabPage_Status.Size = new System.Drawing.Size(534, 303);
-			this.TabPage_Status.TabIndex = 2;
-			this.TabPage_Status.Text = "Status Log";
-			this.TabPage_Status.Visible = false;
-			// 
-			// List_StatusLog
-			// 
-			this.List_StatusLog.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.List_StatusLog.IntegralHeight = false;
-			this.List_StatusLog.Location = new System.Drawing.Point(0, 32);
-			this.List_StatusLog.Name = "List_StatusLog";
-			this.List_StatusLog.SelectionMode = System.Windows.Forms.SelectionMode.None;
-			this.List_StatusLog.Size = new System.Drawing.Size(534, 271);
-			this.List_StatusLog.TabIndex = 4;
-			// 
-			// Panel_LogButtons
-			// 
-			this.Panel_LogButtons.Controls.Add(this.Button_ClearLog);
-			this.Panel_LogButtons.Controls.Add(this.Button_SaveLog);
-			this.Panel_LogButtons.Dock = System.Windows.Forms.DockStyle.Top;
-			this.Panel_LogButtons.Location = new System.Drawing.Point(0, 0);
-			this.Panel_LogButtons.Name = "Panel_LogButtons";
-			this.Panel_LogButtons.Size = new System.Drawing.Size(534, 32);
-			this.Panel_LogButtons.TabIndex = 3;
-			// 
-			// Button_ClearLog
-			// 
-			this.Button_ClearLog.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_ClearLog.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_ClearLog.Location = new System.Drawing.Point(88, 4);
-			this.Button_ClearLog.Name = "Button_ClearLog";
-			this.Button_ClearLog.TabIndex = 4;
-			this.Button_ClearLog.Text = "Clear";
-			this.Button_ClearLog.Click += new System.EventHandler(this.Button_ClearLog_Click);
-			// 
-			// Button_SaveLog
-			// 
-			this.Button_SaveLog.BackColor = System.Drawing.SystemColors.Control;
-			this.Button_SaveLog.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.Button_SaveLog.Location = new System.Drawing.Point(7, 4);
-			this.Button_SaveLog.Name = "Button_SaveLog";
-			this.Button_SaveLog.TabIndex = 0;
-			this.Button_SaveLog.Text = "Save";
-			this.Button_SaveLog.Click += new System.EventHandler(this.Button_SaveLog_Click);
-			// 
-			// TabControl_Main
-			// 
-			this.TabControl_Main.Controls.Add(this.TabPage_Servers);
-			this.TabControl_Main.Controls.Add(this.TabPage_Queue);
-			this.TabControl_Main.Controls.Add(this.TabPage_Status);
-			this.TabControl_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TabControl_Main.ItemSize = new System.Drawing.Size(85, 18);
-			this.TabControl_Main.Location = new System.Drawing.Point(0, 0);
-			this.TabControl_Main.Name = "TabControl_Main";
-			this.TabControl_Main.Padding = new System.Drawing.Point(0, 0);
-			this.TabControl_Main.SelectedIndex = 0;
-			this.TabControl_Main.Size = new System.Drawing.Size(542, 329);
-			this.TabControl_Main.TabIndex = 13;
-			this.TabControl_Main.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
-			// 
-			// Context_Delete
-			// 
-			this.Context_Delete.Index = 8;
-			this.Context_Delete.Text = "Delete";
-			this.Context_Delete.Click += new System.EventHandler(this.Context_Delete_Click);
-			// 
-			// menuItem2
-			// 
-			this.menuItem2.Index = 9;
-			this.menuItem2.Text = "-";
-			// 
-			// Context_Prune
-			// 
-			this.Context_Prune.Index = 10;
-			this.Context_Prune.Text = "Prune";
-			this.Context_Prune.Click += new System.EventHandler(this.Context_Prune_Click);
-			// 
-			// frmMain
-			// 
-			this.AllowDrop = true;
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(542, 445);
-			this.Controls.Add(this.Splitter_Lists);
-			this.Controls.Add(this.TabControl_Main);
-			this.Controls.Add(this.Panel_Connections);
-			this.Controls.Add(this.Main_StatusBar);
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Menu = this.MainMenu_Main;
-			this.Name = "frmMain";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "NZB-O-Matic";
-			this.Resize += new System.EventHandler(this.frmMain_Resize);
-			this.Closing += new System.ComponentModel.CancelEventHandler(this.frmMain_Closing);
-			this.Load += new System.EventHandler(this.frmMain_Load);
-			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.NZBType_DragDrop);
-			this.Closed += new System.EventHandler(this.frmMain_Closed);
-			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.NZBType_DragEnter);
-			this.Panel_Connections.ResumeLayout(false);
-			this.TabPage_Servers.ResumeLayout(false);
-			this.Panel_ServerButtons.ResumeLayout(false);
-			this.TabPage_Queue.ResumeLayout(false);
-			this.Panel_QueueButtons.ResumeLayout(false);
-			this.TabPage_Status.ResumeLayout(false);
-			this.Panel_LogButtons.ResumeLayout(false);
-			this.TabControl_Main.ResumeLayout(false);
-			this.ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            this.OpenFile_ImportNZB = new System.Windows.Forms.OpenFileDialog();
+            this.Icon_Tray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.ContextMenu_Icon = new System.Windows.Forms.ContextMenu();
+            this.Context_Connect = new System.Windows.Forms.MenuItem();
+            this.Context_Disconnect = new System.Windows.Forms.MenuItem();
+            this.Context_Divider1 = new System.Windows.Forms.MenuItem();
+            this.Context_Exit = new System.Windows.Forms.MenuItem();
+            this.MainMenu_Main = new System.Windows.Forms.MainMenu(this.components);
+            this.Menu_Main_File = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_File_Connect = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_File_Disconnect = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_File_Divider1 = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_File_ImportNZB = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_File_Divider2 = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_File_Exit = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Edit = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Edit_AddServer = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Edit_EditServer = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Edit_DeleteServer = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Edit_Divider1 = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Edit_DeleteArticle = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Edit_DecodeArticle = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Options = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Options_Reset = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Options_ClearCache = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Options_Exit = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_SaveWindowStatus = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Options_Divider1 = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Options_Prefernces = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Help = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Help_Update = new System.Windows.Forms.MenuItem();
+            this.Menu_Main_Help_About = new System.Windows.Forms.MenuItem();
+            this.Update_Timer = new System.Windows.Forms.Timer(this.components);
+            this.Main_StatusBar = new System.Windows.Forms.StatusBar();
+            this.Panel_Connections = new System.Windows.Forms.Panel();
+            this.lvConnections = new System.Windows.Forms.ListView();
+            this.chServer = new System.Windows.Forms.ColumnHeader();
+            this.chID = new System.Windows.Forms.ColumnHeader();
+            this.chConnStatus = new System.Windows.Forms.ColumnHeader();
+            this.chProgress = new System.Windows.Forms.ColumnHeader();
+            this.chSpeed = new System.Windows.Forms.ColumnHeader();
+            this.ContextMenu_Queue = new System.Windows.Forms.ContextMenu();
+            this.Context_MoveUp = new System.Windows.Forms.MenuItem();
+            this.Context_MoveDown = new System.Windows.Forms.MenuItem();
+            this.Context_Divider2 = new System.Windows.Forms.MenuItem();
+            this.Context_MoveTop = new System.Windows.Forms.MenuItem();
+            this.Context_MoveBottom = new System.Windows.Forms.MenuItem();
+            this.Context_Divider3 = new System.Windows.Forms.MenuItem();
+            this.Context_Decode = new System.Windows.Forms.MenuItem();
+            this.Context_Pause = new System.Windows.Forms.MenuItem();
+            this.Context_Delete = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.Context_Prune = new System.Windows.Forms.MenuItem();
+            this.Splitter_Lists = new System.Windows.Forms.Splitter();
+            this.Save_Log = new System.Windows.Forms.SaveFileDialog();
+            this.TabPage_Servers = new System.Windows.Forms.TabPage();
+            this.lvServers = new System.Windows.Forms.ListView();
+            this.chServerGroup = new System.Windows.Forms.ColumnHeader();
+            this.chAddress = new System.Windows.Forms.ColumnHeader();
+            this.chPort = new System.Windows.Forms.ColumnHeader();
+            this.chConnections = new System.Windows.Forms.ColumnHeader();
+            this.chRequiresLogin = new System.Windows.Forms.ColumnHeader();
+            this.chUsername = new System.Windows.Forms.ColumnHeader();
+            this.chPassword = new System.Windows.Forms.ColumnHeader();
+            this.Panel_ServerButtons = new System.Windows.Forms.Panel();
+            this.Button_Disconnect = new System.Windows.Forms.Button();
+            this.Button_Connect = new System.Windows.Forms.Button();
+            this.Button_EditServer = new System.Windows.Forms.Button();
+            this.Button_DeleteServer = new System.Windows.Forms.Button();
+            this.Button_AddServer = new System.Windows.Forms.Button();
+            this.TabPage_Queue = new System.Windows.Forms.TabPage();
+            this.lvArticles = new System.Windows.Forms.ListView();
+            this.chArticle = new System.Windows.Forms.ColumnHeader();
+            this.chSize = new System.Windows.Forms.ColumnHeader();
+            this.chParts = new System.Windows.Forms.ColumnHeader();
+            this.chStatus = new System.Windows.Forms.ColumnHeader();
+            this.chDate = new System.Windows.Forms.ColumnHeader();
+            this.chGroups = new System.Windows.Forms.ColumnHeader();
+            this.Panel_QueueButtons = new System.Windows.Forms.Panel();
+            this.ButtonDecodeIncomplete = new System.Windows.Forms.Button();
+            this.setIncompleteToQueuedButton = new System.Windows.Forms.Button();
+            this.Button_Bottom = new System.Windows.Forms.Button();
+            this.Button_Down = new System.Windows.Forms.Button();
+            this.Button_Up = new System.Windows.Forms.Button();
+            this.Button_Top = new System.Windows.Forms.Button();
+            this.Button_Prune = new System.Windows.Forms.Button();
+            this.Button_DeleteQueue = new System.Windows.Forms.Button();
+            this.Button_ImportNZB = new System.Windows.Forms.Button();
+            this.TabPage_Status = new System.Windows.Forms.TabPage();
+            this.List_StatusLog = new System.Windows.Forms.ListBox();
+            this.Panel_LogButtons = new System.Windows.Forms.Panel();
+            this.Button_ClearLog = new System.Windows.Forms.Button();
+            this.Button_SaveLog = new System.Windows.Forms.Button();
+            this.TabControl_Main = new System.Windows.Forms.TabControl();
+            this.chSSL = new System.Windows.Forms.ColumnHeader();
+            this.Panel_Connections.SuspendLayout();
+            this.TabPage_Servers.SuspendLayout();
+            this.Panel_ServerButtons.SuspendLayout();
+            this.TabPage_Queue.SuspendLayout();
+            this.Panel_QueueButtons.SuspendLayout();
+            this.TabPage_Status.SuspendLayout();
+            this.Panel_LogButtons.SuspendLayout();
+            this.TabControl_Main.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // OpenFile_ImportNZB
+            // 
+            this.OpenFile_ImportNZB.Filter = "NZB files|*.nzb";
+            this.OpenFile_ImportNZB.Multiselect = true;
+            this.OpenFile_ImportNZB.RestoreDirectory = true;
+            this.OpenFile_ImportNZB.Title = "Import NZB file";
+            // 
+            // Icon_Tray
+            // 
+            this.Icon_Tray.ContextMenu = this.ContextMenu_Icon;
+            this.Icon_Tray.Icon = ((System.Drawing.Icon)(resources.GetObject("Icon_Tray.Icon")));
+            this.Icon_Tray.Text = "NZB-O-Matic";
+            this.Icon_Tray.Visible = true;
+            this.Icon_Tray.Click += new System.EventHandler(this.Icon_Tray_Click);
+            // 
+            // ContextMenu_Icon
+            // 
+            this.ContextMenu_Icon.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.Context_Connect,
+            this.Context_Disconnect,
+            this.Context_Divider1,
+            this.Context_Exit});
+            // 
+            // Context_Connect
+            // 
+            this.Context_Connect.Index = 0;
+            this.Context_Connect.Text = "Connect";
+            this.Context_Connect.Click += new System.EventHandler(this.Context_Connect_Click);
+            // 
+            // Context_Disconnect
+            // 
+            this.Context_Disconnect.Enabled = false;
+            this.Context_Disconnect.Index = 1;
+            this.Context_Disconnect.Text = "Disconnect";
+            this.Context_Disconnect.Click += new System.EventHandler(this.Context_Disconnect_Click);
+            // 
+            // Context_Divider1
+            // 
+            this.Context_Divider1.Index = 2;
+            this.Context_Divider1.Text = "-";
+            // 
+            // Context_Exit
+            // 
+            this.Context_Exit.Index = 3;
+            this.Context_Exit.Text = "Exit";
+            this.Context_Exit.Click += new System.EventHandler(this.Context_Exit_Click);
+            // 
+            // MainMenu_Main
+            // 
+            this.MainMenu_Main.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.Menu_Main_File,
+            this.Menu_Main_Edit,
+            this.Menu_Main_Options,
+            this.Menu_Main_Help});
+            // 
+            // Menu_Main_File
+            // 
+            this.Menu_Main_File.Index = 0;
+            this.Menu_Main_File.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.Menu_Main_File_Connect,
+            this.Menu_Main_File_Disconnect,
+            this.Menu_Main_File_Divider1,
+            this.Menu_Main_File_ImportNZB,
+            this.Menu_Main_File_Divider2,
+            this.Menu_Main_File_Exit});
+            this.Menu_Main_File.Text = "File";
+            // 
+            // Menu_Main_File_Connect
+            // 
+            this.Menu_Main_File_Connect.Index = 0;
+            this.Menu_Main_File_Connect.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftC;
+            this.Menu_Main_File_Connect.Text = "Connect";
+            this.Menu_Main_File_Connect.Click += new System.EventHandler(this.Menu_Main_File_Connect_Click);
+            // 
+            // Menu_Main_File_Disconnect
+            // 
+            this.Menu_Main_File_Disconnect.Enabled = false;
+            this.Menu_Main_File_Disconnect.Index = 1;
+            this.Menu_Main_File_Disconnect.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftD;
+            this.Menu_Main_File_Disconnect.Text = "Disconnect";
+            this.Menu_Main_File_Disconnect.Click += new System.EventHandler(this.Menu_Main_File_Disconnect_Click);
+            // 
+            // Menu_Main_File_Divider1
+            // 
+            this.Menu_Main_File_Divider1.Index = 2;
+            this.Menu_Main_File_Divider1.Text = "-";
+            // 
+            // Menu_Main_File_ImportNZB
+            // 
+            this.Menu_Main_File_ImportNZB.Index = 3;
+            this.Menu_Main_File_ImportNZB.Text = "Import nzb...";
+            this.Menu_Main_File_ImportNZB.Click += new System.EventHandler(this.Menu_Main_File_ImportNZB_Click);
+            // 
+            // Menu_Main_File_Divider2
+            // 
+            this.Menu_Main_File_Divider2.Index = 4;
+            this.Menu_Main_File_Divider2.Text = "-";
+            // 
+            // Menu_Main_File_Exit
+            // 
+            this.Menu_Main_File_Exit.Index = 5;
+            this.Menu_Main_File_Exit.Text = "Exit";
+            this.Menu_Main_File_Exit.Click += new System.EventHandler(this.Menu_Main_File_Exit_Click);
+            // 
+            // Menu_Main_Edit
+            // 
+            this.Menu_Main_Edit.Index = 1;
+            this.Menu_Main_Edit.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.Menu_Main_Edit_AddServer,
+            this.Menu_Main_Edit_EditServer,
+            this.Menu_Main_Edit_DeleteServer,
+            this.Menu_Main_Edit_Divider1,
+            this.Menu_Main_Edit_DeleteArticle,
+            this.Menu_Main_Edit_DecodeArticle});
+            this.Menu_Main_Edit.Text = "Edit";
+            // 
+            // Menu_Main_Edit_AddServer
+            // 
+            this.Menu_Main_Edit_AddServer.Index = 0;
+            this.Menu_Main_Edit_AddServer.Text = "Add Server";
+            this.Menu_Main_Edit_AddServer.Click += new System.EventHandler(this.Menu_Main_Edit_AddServer_Click);
+            // 
+            // Menu_Main_Edit_EditServer
+            // 
+            this.Menu_Main_Edit_EditServer.Index = 1;
+            this.Menu_Main_Edit_EditServer.Text = "Edit Server";
+            this.Menu_Main_Edit_EditServer.Click += new System.EventHandler(this.Menu_Main_Edit_EditServer_Click);
+            // 
+            // Menu_Main_Edit_DeleteServer
+            // 
+            this.Menu_Main_Edit_DeleteServer.Index = 2;
+            this.Menu_Main_Edit_DeleteServer.Text = "Delete Server";
+            this.Menu_Main_Edit_DeleteServer.Click += new System.EventHandler(this.Menu_Main_Edit_DeleteServer_Click);
+            // 
+            // Menu_Main_Edit_Divider1
+            // 
+            this.Menu_Main_Edit_Divider1.Index = 3;
+            this.Menu_Main_Edit_Divider1.Text = "-";
+            // 
+            // Menu_Main_Edit_DeleteArticle
+            // 
+            this.Menu_Main_Edit_DeleteArticle.Index = 4;
+            this.Menu_Main_Edit_DeleteArticle.Text = "Delete Article";
+            this.Menu_Main_Edit_DeleteArticle.Click += new System.EventHandler(this.Menu_Main_Edit_DeleteArticle_Click);
+            // 
+            // Menu_Main_Edit_DecodeArticle
+            // 
+            this.Menu_Main_Edit_DecodeArticle.Index = 5;
+            this.Menu_Main_Edit_DecodeArticle.Text = "Decode Article";
+            this.Menu_Main_Edit_DecodeArticle.Click += new System.EventHandler(this.Menu_Main_Edit_DecodeArticle_Click);
+            // 
+            // Menu_Main_Options
+            // 
+            this.Menu_Main_Options.Index = 2;
+            this.Menu_Main_Options.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.Menu_Main_Options_Reset,
+            this.Menu_Main_Options_ClearCache,
+            this.Menu_Main_Options_Exit,
+            this.Menu_Main_SaveWindowStatus,
+            this.Menu_Main_Options_Divider1,
+            this.Menu_Main_Options_Prefernces});
+            this.Menu_Main_Options.Text = "Options";
+            // 
+            // Menu_Main_Options_Reset
+            // 
+            this.Menu_Main_Options_Reset.Index = 0;
+            this.Menu_Main_Options_Reset.Text = "Reset Download Total";
+            this.Menu_Main_Options_Reset.Click += new System.EventHandler(this.Menu_Main_Options_Reset_Click);
+            // 
+            // Menu_Main_Options_ClearCache
+            // 
+            this.Menu_Main_Options_ClearCache.Index = 1;
+            this.Menu_Main_Options_ClearCache.Text = "Empty Cache";
+            this.Menu_Main_Options_ClearCache.Click += new System.EventHandler(this.Menu_Main_Options_ClearCache_Click);
+            // 
+            // Menu_Main_Options_Exit
+            // 
+            this.Menu_Main_Options_Exit.Index = 2;
+            this.Menu_Main_Options_Exit.Text = "Exit on completion";
+            this.Menu_Main_Options_Exit.Click += new System.EventHandler(this.Menu_Main_Options_Exit_Click);
+            // 
+            // Menu_Main_SaveWindowStatus
+            // 
+            this.Menu_Main_SaveWindowStatus.Checked = true;
+            this.Menu_Main_SaveWindowStatus.Index = 3;
+            this.Menu_Main_SaveWindowStatus.Text = "Save window status";
+            this.Menu_Main_SaveWindowStatus.Click += new System.EventHandler(this.Menu_Main_SaveWindowStatus_Click);
+            // 
+            // Menu_Main_Options_Divider1
+            // 
+            this.Menu_Main_Options_Divider1.Index = 4;
+            this.Menu_Main_Options_Divider1.Text = "-";
+            // 
+            // Menu_Main_Options_Prefernces
+            // 
+            this.Menu_Main_Options_Prefernces.Index = 5;
+            this.Menu_Main_Options_Prefernces.Text = "Preferences";
+            this.Menu_Main_Options_Prefernces.Click += new System.EventHandler(this.Menu_Main_Options_Prefernces_Click);
+            // 
+            // Menu_Main_Help
+            // 
+            this.Menu_Main_Help.Index = 3;
+            this.Menu_Main_Help.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.Menu_Main_Help_Update,
+            this.Menu_Main_Help_About});
+            this.Menu_Main_Help.Text = "Help";
+            // 
+            // Menu_Main_Help_Update
+            // 
+            this.Menu_Main_Help_Update.Index = 0;
+            this.Menu_Main_Help_Update.Text = "Update";
+            this.Menu_Main_Help_Update.Click += new System.EventHandler(this.Menu_Main_Help_Update_Click);
+            // 
+            // Menu_Main_Help_About
+            // 
+            this.Menu_Main_Help_About.Index = 1;
+            this.Menu_Main_Help_About.Text = "About";
+            this.Menu_Main_Help_About.Click += new System.EventHandler(this.Menu_Main_Help_About_Click);
+            // 
+            // Update_Timer
+            // 
+            this.Update_Timer.Enabled = true;
+            this.Update_Timer.Interval = 500;
+            this.Update_Timer.Tick += new System.EventHandler(this.Update_Timer_Tick);
+            // 
+            // Main_StatusBar
+            // 
+            this.Main_StatusBar.Location = new System.Drawing.Point(0, 429);
+            this.Main_StatusBar.Name = "Main_StatusBar";
+            this.Main_StatusBar.ShowPanels = true;
+            this.Main_StatusBar.Size = new System.Drawing.Size(542, 16);
+            this.Main_StatusBar.TabIndex = 7;
+            this.Main_StatusBar.Text = "StatusBar";
+            // 
+            // Panel_Connections
+            // 
+            this.Panel_Connections.Controls.Add(this.lvConnections);
+            this.Panel_Connections.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Panel_Connections.Location = new System.Drawing.Point(0, 329);
+            this.Panel_Connections.Name = "Panel_Connections";
+            this.Panel_Connections.Size = new System.Drawing.Size(542, 100);
+            this.Panel_Connections.TabIndex = 12;
+            // 
+            // lvConnections
+            // 
+            this.lvConnections.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chServer,
+            this.chID,
+            this.chConnStatus,
+            this.chProgress,
+            this.chSpeed});
+            this.lvConnections.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvConnections.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvConnections.Location = new System.Drawing.Point(0, 0);
+            this.lvConnections.Name = "lvConnections";
+            this.lvConnections.Size = new System.Drawing.Size(542, 100);
+            this.lvConnections.TabIndex = 11;
+            this.lvConnections.UseCompatibleStateImageBehavior = false;
+            this.lvConnections.View = System.Windows.Forms.View.Details;
+            // 
+            // chServer
+            // 
+            this.chServer.Text = "Server";
+            this.chServer.Width = 124;
+            // 
+            // chID
+            // 
+            this.chID.Text = "#";
+            this.chID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.chID.Width = 23;
+            // 
+            // chConnStatus
+            // 
+            this.chConnStatus.Text = "Status";
+            this.chConnStatus.Width = 161;
+            // 
+            // chProgress
+            // 
+            this.chProgress.Text = "Progress";
+            this.chProgress.Width = 124;
+            // 
+            // chSpeed
+            // 
+            this.chSpeed.Text = "Speed";
+            // 
+            // ContextMenu_Queue
+            // 
+            this.ContextMenu_Queue.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.Context_MoveUp,
+            this.Context_MoveDown,
+            this.Context_Divider2,
+            this.Context_MoveTop,
+            this.Context_MoveBottom,
+            this.Context_Divider3,
+            this.Context_Decode,
+            this.Context_Pause,
+            this.Context_Delete,
+            this.menuItem2,
+            this.Context_Prune});
+            // 
+            // Context_MoveUp
+            // 
+            this.Context_MoveUp.Index = 0;
+            this.Context_MoveUp.Text = "Move Up";
+            this.Context_MoveUp.Click += new System.EventHandler(this.Context_MoveUp_Click);
+            // 
+            // Context_MoveDown
+            // 
+            this.Context_MoveDown.Index = 1;
+            this.Context_MoveDown.Text = "Move Down";
+            this.Context_MoveDown.Click += new System.EventHandler(this.Context_MoveDown_Click);
+            // 
+            // Context_Divider2
+            // 
+            this.Context_Divider2.Index = 2;
+            this.Context_Divider2.Text = "-";
+            // 
+            // Context_MoveTop
+            // 
+            this.Context_MoveTop.Index = 3;
+            this.Context_MoveTop.Text = "Move to Top";
+            this.Context_MoveTop.Click += new System.EventHandler(this.Context_MoveTop_Click);
+            // 
+            // Context_MoveBottom
+            // 
+            this.Context_MoveBottom.Index = 4;
+            this.Context_MoveBottom.Text = "Move to Bottom";
+            this.Context_MoveBottom.Click += new System.EventHandler(this.Context_MoveBottom_Click);
+            // 
+            // Context_Divider3
+            // 
+            this.Context_Divider3.Index = 5;
+            this.Context_Divider3.Text = "-";
+            // 
+            // Context_Decode
+            // 
+            this.Context_Decode.Index = 6;
+            this.Context_Decode.Text = "Decode";
+            this.Context_Decode.Click += new System.EventHandler(this.Context_Decode_Click);
+            // 
+            // Context_Pause
+            // 
+            this.Context_Pause.Index = 7;
+            this.Context_Pause.Text = "Pause";
+            this.Context_Pause.Click += new System.EventHandler(this.Context_Pause_Click_1);
+            // 
+            // Context_Delete
+            // 
+            this.Context_Delete.Index = 8;
+            this.Context_Delete.Text = "Delete";
+            this.Context_Delete.Click += new System.EventHandler(this.Context_Delete_Click);
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Index = 9;
+            this.menuItem2.Text = "-";
+            // 
+            // Context_Prune
+            // 
+            this.Context_Prune.Index = 10;
+            this.Context_Prune.Text = "Prune";
+            this.Context_Prune.Click += new System.EventHandler(this.Context_Prune_Click);
+            // 
+            // Splitter_Lists
+            // 
+            this.Splitter_Lists.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Splitter_Lists.Location = new System.Drawing.Point(0, 326);
+            this.Splitter_Lists.Name = "Splitter_Lists";
+            this.Splitter_Lists.Size = new System.Drawing.Size(542, 3);
+            this.Splitter_Lists.TabIndex = 14;
+            this.Splitter_Lists.TabStop = false;
+            // 
+            // Save_Log
+            // 
+            this.Save_Log.Filter = "(Text files)|*.txt";
+            // 
+            // TabPage_Servers
+            // 
+            this.TabPage_Servers.Controls.Add(this.lvServers);
+            this.TabPage_Servers.Controls.Add(this.Panel_ServerButtons);
+            this.TabPage_Servers.Location = new System.Drawing.Point(4, 22);
+            this.TabPage_Servers.Name = "TabPage_Servers";
+            this.TabPage_Servers.Size = new System.Drawing.Size(534, 303);
+            this.TabPage_Servers.TabIndex = 0;
+            this.TabPage_Servers.Text = "Usenet Servers";
+            // 
+            // lvServers
+            // 
+            this.lvServers.CheckBoxes = true;
+            this.lvServers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chServerGroup,
+            this.chAddress,
+            this.chPort,
+            this.chConnections,
+            this.chRequiresLogin,
+            this.chUsername,
+            this.chPassword,
+            this.chSSL});
+            this.lvServers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvServers.FullRowSelect = true;
+            this.lvServers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvServers.Location = new System.Drawing.Point(0, 32);
+            this.lvServers.MultiSelect = false;
+            this.lvServers.Name = "lvServers";
+            this.lvServers.Size = new System.Drawing.Size(534, 271);
+            this.lvServers.TabIndex = 3;
+            this.lvServers.UseCompatibleStateImageBehavior = false;
+            this.lvServers.View = System.Windows.Forms.View.Details;
+            this.lvServers.ItemActivate += new System.EventHandler(this.lvServers_ItemActivate);
+            this.lvServers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lvServers_ItemCheck);
+            this.lvServers.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvServers_KeyDown);
+            // 
+            // chServerGroup
+            // 
+            this.chServerGroup.Text = "Group";
+            this.chServerGroup.Width = 42;
+            // 
+            // chAddress
+            // 
+            this.chAddress.Text = "Address";
+            this.chAddress.Width = 118;
+            // 
+            // chPort
+            // 
+            this.chPort.Text = "Port";
+            this.chPort.Width = 32;
+            // 
+            // chConnections
+            // 
+            this.chConnections.Text = "Connections";
+            this.chConnections.Width = 73;
+            // 
+            // chRequiresLogin
+            // 
+            this.chRequiresLogin.Text = "Requires Login";
+            this.chRequiresLogin.Width = 85;
+            // 
+            // chUsername
+            // 
+            this.chUsername.Text = "Username";
+            // 
+            // chPassword
+            // 
+            this.chPassword.Text = "Password";
+            // 
+            // Panel_ServerButtons
+            // 
+            this.Panel_ServerButtons.BackColor = System.Drawing.SystemColors.Control;
+            this.Panel_ServerButtons.Controls.Add(this.Button_Disconnect);
+            this.Panel_ServerButtons.Controls.Add(this.Button_Connect);
+            this.Panel_ServerButtons.Controls.Add(this.Button_EditServer);
+            this.Panel_ServerButtons.Controls.Add(this.Button_DeleteServer);
+            this.Panel_ServerButtons.Controls.Add(this.Button_AddServer);
+            this.Panel_ServerButtons.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Panel_ServerButtons.Location = new System.Drawing.Point(0, 0);
+            this.Panel_ServerButtons.Name = "Panel_ServerButtons";
+            this.Panel_ServerButtons.Size = new System.Drawing.Size(534, 32);
+            this.Panel_ServerButtons.TabIndex = 2;
+            // 
+            // Button_Disconnect
+            // 
+            this.Button_Disconnect.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_Disconnect.Enabled = false;
+            this.Button_Disconnect.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_Disconnect.Location = new System.Drawing.Point(456, 4);
+            this.Button_Disconnect.Name = "Button_Disconnect";
+            this.Button_Disconnect.Size = new System.Drawing.Size(75, 23);
+            this.Button_Disconnect.TabIndex = 9;
+            this.Button_Disconnect.Text = "Disconnect";
+            this.Button_Disconnect.UseVisualStyleBackColor = false;
+            this.Button_Disconnect.Click += new System.EventHandler(this.Button_Disconnect_Click);
+            // 
+            // Button_Connect
+            // 
+            this.Button_Connect.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_Connect.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_Connect.Location = new System.Drawing.Point(376, 4);
+            this.Button_Connect.Name = "Button_Connect";
+            this.Button_Connect.Size = new System.Drawing.Size(75, 23);
+            this.Button_Connect.TabIndex = 8;
+            this.Button_Connect.Text = "Connect";
+            this.Button_Connect.UseVisualStyleBackColor = false;
+            this.Button_Connect.Click += new System.EventHandler(this.Button_Connect_Click);
+            // 
+            // Button_EditServer
+            // 
+            this.Button_EditServer.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_EditServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_EditServer.Location = new System.Drawing.Point(88, 4);
+            this.Button_EditServer.Name = "Button_EditServer";
+            this.Button_EditServer.Size = new System.Drawing.Size(75, 23);
+            this.Button_EditServer.TabIndex = 6;
+            this.Button_EditServer.Text = "Edit Server";
+            this.Button_EditServer.UseVisualStyleBackColor = false;
+            this.Button_EditServer.Click += new System.EventHandler(this.Button_EditServer_Click);
+            // 
+            // Button_DeleteServer
+            // 
+            this.Button_DeleteServer.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_DeleteServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_DeleteServer.Location = new System.Drawing.Point(168, 4);
+            this.Button_DeleteServer.Name = "Button_DeleteServer";
+            this.Button_DeleteServer.Size = new System.Drawing.Size(75, 23);
+            this.Button_DeleteServer.TabIndex = 7;
+            this.Button_DeleteServer.Text = "Delete";
+            this.Button_DeleteServer.UseVisualStyleBackColor = false;
+            this.Button_DeleteServer.Click += new System.EventHandler(this.Button_DeleteServer_Click);
+            // 
+            // Button_AddServer
+            // 
+            this.Button_AddServer.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_AddServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_AddServer.Location = new System.Drawing.Point(7, 4);
+            this.Button_AddServer.Name = "Button_AddServer";
+            this.Button_AddServer.Size = new System.Drawing.Size(75, 23);
+            this.Button_AddServer.TabIndex = 5;
+            this.Button_AddServer.Text = "Add Server";
+            this.Button_AddServer.UseVisualStyleBackColor = false;
+            this.Button_AddServer.Click += new System.EventHandler(this.Button_AddServer_Click);
+            // 
+            // TabPage_Queue
+            // 
+            this.TabPage_Queue.Controls.Add(this.lvArticles);
+            this.TabPage_Queue.Controls.Add(this.Panel_QueueButtons);
+            this.TabPage_Queue.Location = new System.Drawing.Point(4, 22);
+            this.TabPage_Queue.Name = "TabPage_Queue";
+            this.TabPage_Queue.Size = new System.Drawing.Size(534, 303);
+            this.TabPage_Queue.TabIndex = 1;
+            this.TabPage_Queue.Text = "Transfer Queue";
+            this.TabPage_Queue.Visible = false;
+            // 
+            // lvArticles
+            // 
+            this.lvArticles.AllowColumnReorder = true;
+            this.lvArticles.AllowDrop = true;
+            this.lvArticles.BackColor = System.Drawing.Color.White;
+            this.lvArticles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chArticle,
+            this.chSize,
+            this.chParts,
+            this.chStatus,
+            this.chDate,
+            this.chGroups});
+            this.lvArticles.ContextMenu = this.ContextMenu_Queue;
+            this.lvArticles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvArticles.FullRowSelect = true;
+            this.lvArticles.HideSelection = false;
+            this.lvArticles.Location = new System.Drawing.Point(0, 32);
+            this.lvArticles.Name = "lvArticles";
+            this.lvArticles.Size = new System.Drawing.Size(534, 271);
+            this.lvArticles.TabIndex = 2;
+            this.lvArticles.UseCompatibleStateImageBehavior = false;
+            this.lvArticles.View = System.Windows.Forms.View.Details;
+            this.lvArticles.DragEnter += new System.Windows.Forms.DragEventHandler(this.NZBType_DragEnter);
+            this.lvArticles.DragDrop += new System.Windows.Forms.DragEventHandler(this.NZBType_DragDrop);
+            this.lvArticles.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lvArticles_ItemCheck);
+            this.lvArticles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvArticles_KeyDown);
+            this.lvArticles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvArticles_ColumnClick);
+            // 
+            // chArticle
+            // 
+            this.chArticle.Text = "Subject";
+            this.chArticle.Width = 163;
+            // 
+            // chSize
+            // 
+            this.chSize.Text = "Size";
+            // 
+            // chParts
+            // 
+            this.chParts.Text = "Parts";
+            // 
+            // chStatus
+            // 
+            this.chStatus.Text = "Status";
+            // 
+            // chDate
+            // 
+            this.chDate.Text = "Date";
+            // 
+            // chGroups
+            // 
+            this.chGroups.Text = "Groups";
+            // 
+            // Panel_QueueButtons
+            // 
+            this.Panel_QueueButtons.Controls.Add(this.ButtonDecodeIncomplete);
+            this.Panel_QueueButtons.Controls.Add(this.setIncompleteToQueuedButton);
+            this.Panel_QueueButtons.Controls.Add(this.Button_Bottom);
+            this.Panel_QueueButtons.Controls.Add(this.Button_Down);
+            this.Panel_QueueButtons.Controls.Add(this.Button_Up);
+            this.Panel_QueueButtons.Controls.Add(this.Button_Top);
+            this.Panel_QueueButtons.Controls.Add(this.Button_Prune);
+            this.Panel_QueueButtons.Controls.Add(this.Button_DeleteQueue);
+            this.Panel_QueueButtons.Controls.Add(this.Button_ImportNZB);
+            this.Panel_QueueButtons.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Panel_QueueButtons.Location = new System.Drawing.Point(0, 0);
+            this.Panel_QueueButtons.Name = "Panel_QueueButtons";
+            this.Panel_QueueButtons.Size = new System.Drawing.Size(534, 32);
+            this.Panel_QueueButtons.TabIndex = 1;
+            // 
+            // ButtonDecodeIncomplete
+            // 
+            this.ButtonDecodeIncomplete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ButtonDecodeIncomplete.Location = new System.Drawing.Point(358, 4);
+            this.ButtonDecodeIncomplete.Name = "ButtonDecodeIncomplete";
+            this.ButtonDecodeIncomplete.Size = new System.Drawing.Size(64, 23);
+            this.ButtonDecodeIncomplete.TabIndex = 6;
+            this.ButtonDecodeIncomplete.Text = "Decode";
+            this.ButtonDecodeIncomplete.Click += new System.EventHandler(this.ButtonDecodeIncomplete_Click);
+            // 
+            // setIncompleteToQueuedButton
+            // 
+            this.setIncompleteToQueuedButton.BackColor = System.Drawing.SystemColors.Control;
+            this.setIncompleteToQueuedButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.setIncompleteToQueuedButton.Location = new System.Drawing.Point(248, 4);
+            this.setIncompleteToQueuedButton.Name = "setIncompleteToQueuedButton";
+            this.setIncompleteToQueuedButton.Size = new System.Drawing.Size(104, 23);
+            this.setIncompleteToQueuedButton.TabIndex = 5;
+            this.setIncompleteToQueuedButton.Text = "Retry Incompletes";
+            this.setIncompleteToQueuedButton.UseVisualStyleBackColor = false;
+            this.setIncompleteToQueuedButton.Click += new System.EventHandler(this.setIncompleteToQueuedButton_Click);
+            // 
+            // Button_Bottom
+            // 
+            this.Button_Bottom.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_Bottom.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_Bottom.Image = ((System.Drawing.Image)(resources.GetObject("Button_Bottom.Image")));
+            this.Button_Bottom.Location = new System.Drawing.Point(504, 4);
+            this.Button_Bottom.Name = "Button_Bottom";
+            this.Button_Bottom.Size = new System.Drawing.Size(23, 23);
+            this.Button_Bottom.TabIndex = 10;
+            this.Button_Bottom.UseVisualStyleBackColor = false;
+            this.Button_Bottom.Click += new System.EventHandler(this.Context_MoveBottom_Click);
+            // 
+            // Button_Down
+            // 
+            this.Button_Down.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_Down.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_Down.Image = ((System.Drawing.Image)(resources.GetObject("Button_Down.Image")));
+            this.Button_Down.Location = new System.Drawing.Point(480, 4);
+            this.Button_Down.Name = "Button_Down";
+            this.Button_Down.Size = new System.Drawing.Size(23, 23);
+            this.Button_Down.TabIndex = 9;
+            this.Button_Down.UseVisualStyleBackColor = false;
+            this.Button_Down.Click += new System.EventHandler(this.Context_MoveDown_Click);
+            // 
+            // Button_Up
+            // 
+            this.Button_Up.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_Up.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_Up.Image = ((System.Drawing.Image)(resources.GetObject("Button_Up.Image")));
+            this.Button_Up.Location = new System.Drawing.Point(456, 4);
+            this.Button_Up.Name = "Button_Up";
+            this.Button_Up.Size = new System.Drawing.Size(23, 23);
+            this.Button_Up.TabIndex = 8;
+            this.Button_Up.UseVisualStyleBackColor = false;
+            this.Button_Up.Click += new System.EventHandler(this.Context_MoveUp_Click);
+            // 
+            // Button_Top
+            // 
+            this.Button_Top.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_Top.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_Top.Image = ((System.Drawing.Image)(resources.GetObject("Button_Top.Image")));
+            this.Button_Top.Location = new System.Drawing.Point(432, 4);
+            this.Button_Top.Name = "Button_Top";
+            this.Button_Top.Size = new System.Drawing.Size(23, 23);
+            this.Button_Top.TabIndex = 7;
+            this.Button_Top.UseVisualStyleBackColor = false;
+            this.Button_Top.Click += new System.EventHandler(this.Context_MoveTop_Click);
+            // 
+            // Button_Prune
+            // 
+            this.Button_Prune.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_Prune.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_Prune.Location = new System.Drawing.Point(88, 4);
+            this.Button_Prune.Name = "Button_Prune";
+            this.Button_Prune.Size = new System.Drawing.Size(75, 23);
+            this.Button_Prune.TabIndex = 3;
+            this.Button_Prune.Text = "Prune";
+            this.Button_Prune.UseVisualStyleBackColor = false;
+            this.Button_Prune.Click += new System.EventHandler(this.Button_Prune_Click);
+            // 
+            // Button_DeleteQueue
+            // 
+            this.Button_DeleteQueue.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_DeleteQueue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_DeleteQueue.Location = new System.Drawing.Point(168, 4);
+            this.Button_DeleteQueue.Name = "Button_DeleteQueue";
+            this.Button_DeleteQueue.Size = new System.Drawing.Size(75, 23);
+            this.Button_DeleteQueue.TabIndex = 4;
+            this.Button_DeleteQueue.Text = "Delete";
+            this.Button_DeleteQueue.UseVisualStyleBackColor = false;
+            this.Button_DeleteQueue.Click += new System.EventHandler(this.Button_DeleteQueue_Click);
+            // 
+            // Button_ImportNZB
+            // 
+            this.Button_ImportNZB.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_ImportNZB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_ImportNZB.Location = new System.Drawing.Point(7, 4);
+            this.Button_ImportNZB.Name = "Button_ImportNZB";
+            this.Button_ImportNZB.Size = new System.Drawing.Size(75, 23);
+            this.Button_ImportNZB.TabIndex = 0;
+            this.Button_ImportNZB.Text = "Import NZB ";
+            this.Button_ImportNZB.UseVisualStyleBackColor = false;
+            this.Button_ImportNZB.Click += new System.EventHandler(this.Button_ImportNZB_Click);
+            // 
+            // TabPage_Status
+            // 
+            this.TabPage_Status.Controls.Add(this.List_StatusLog);
+            this.TabPage_Status.Controls.Add(this.Panel_LogButtons);
+            this.TabPage_Status.Location = new System.Drawing.Point(4, 22);
+            this.TabPage_Status.Name = "TabPage_Status";
+            this.TabPage_Status.Size = new System.Drawing.Size(534, 303);
+            this.TabPage_Status.TabIndex = 2;
+            this.TabPage_Status.Text = "Status Log";
+            this.TabPage_Status.Visible = false;
+            // 
+            // List_StatusLog
+            // 
+            this.List_StatusLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.List_StatusLog.IntegralHeight = false;
+            this.List_StatusLog.Location = new System.Drawing.Point(0, 32);
+            this.List_StatusLog.Name = "List_StatusLog";
+            this.List_StatusLog.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.List_StatusLog.Size = new System.Drawing.Size(534, 271);
+            this.List_StatusLog.TabIndex = 4;
+            // 
+            // Panel_LogButtons
+            // 
+            this.Panel_LogButtons.Controls.Add(this.Button_ClearLog);
+            this.Panel_LogButtons.Controls.Add(this.Button_SaveLog);
+            this.Panel_LogButtons.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Panel_LogButtons.Location = new System.Drawing.Point(0, 0);
+            this.Panel_LogButtons.Name = "Panel_LogButtons";
+            this.Panel_LogButtons.Size = new System.Drawing.Size(534, 32);
+            this.Panel_LogButtons.TabIndex = 3;
+            // 
+            // Button_ClearLog
+            // 
+            this.Button_ClearLog.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_ClearLog.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_ClearLog.Location = new System.Drawing.Point(88, 4);
+            this.Button_ClearLog.Name = "Button_ClearLog";
+            this.Button_ClearLog.Size = new System.Drawing.Size(75, 23);
+            this.Button_ClearLog.TabIndex = 4;
+            this.Button_ClearLog.Text = "Clear";
+            this.Button_ClearLog.UseVisualStyleBackColor = false;
+            this.Button_ClearLog.Click += new System.EventHandler(this.Button_ClearLog_Click);
+            // 
+            // Button_SaveLog
+            // 
+            this.Button_SaveLog.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_SaveLog.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Button_SaveLog.Location = new System.Drawing.Point(7, 4);
+            this.Button_SaveLog.Name = "Button_SaveLog";
+            this.Button_SaveLog.Size = new System.Drawing.Size(75, 23);
+            this.Button_SaveLog.TabIndex = 0;
+            this.Button_SaveLog.Text = "Save";
+            this.Button_SaveLog.UseVisualStyleBackColor = false;
+            this.Button_SaveLog.Click += new System.EventHandler(this.Button_SaveLog_Click);
+            // 
+            // TabControl_Main
+            // 
+            this.TabControl_Main.Controls.Add(this.TabPage_Servers);
+            this.TabControl_Main.Controls.Add(this.TabPage_Queue);
+            this.TabControl_Main.Controls.Add(this.TabPage_Status);
+            this.TabControl_Main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControl_Main.ItemSize = new System.Drawing.Size(85, 18);
+            this.TabControl_Main.Location = new System.Drawing.Point(0, 0);
+            this.TabControl_Main.Name = "TabControl_Main";
+            this.TabControl_Main.Padding = new System.Drawing.Point(0, 0);
+            this.TabControl_Main.SelectedIndex = 0;
+            this.TabControl_Main.Size = new System.Drawing.Size(542, 329);
+            this.TabControl_Main.TabIndex = 13;
+            this.TabControl_Main.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
+            // chSSL
+            // 
+            this.chSSL.Text = "SSL";
+            this.chSSL.Width = 40;
+            // 
+            // frmMain
+            // 
+            this.AllowDrop = true;
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.ClientSize = new System.Drawing.Size(542, 445);
+            this.Controls.Add(this.Splitter_Lists);
+            this.Controls.Add(this.TabControl_Main);
+            this.Controls.Add(this.Panel_Connections);
+            this.Controls.Add(this.Main_StatusBar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Menu = this.MainMenu_Main;
+            this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "NZB-O-Matic";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.NZBType_DragDrop);
+            this.Closed += new System.EventHandler(this.frmMain_Closed);
+            this.Resize += new System.EventHandler(this.frmMain_Resize);
+            this.Closing += new System.ComponentModel.CancelEventHandler(this.frmMain_Closing);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.NZBType_DragEnter);
+            this.Load += new System.EventHandler(this.frmMain_Load);
+            this.Panel_Connections.ResumeLayout(false);
+            this.TabPage_Servers.ResumeLayout(false);
+            this.Panel_ServerButtons.ResumeLayout(false);
+            this.TabPage_Queue.ResumeLayout(false);
+            this.Panel_QueueButtons.ResumeLayout(false);
+            this.TabPage_Status.ResumeLayout(false);
+            this.Panel_LogButtons.ResumeLayout(false);
+            this.TabControl_Main.ResumeLayout(false);
+            this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -1170,16 +1206,32 @@ namespace NZB_O_Matic
 			LogWriteLine("[e] - " + System.DateTime.Now.ToString() + " - " + toLog.ToString());
 		}
 
+
+		private delegate void UIDelegate(object toLog);
+		private static UIDelegate uiDelegate = new UIDelegate(LogWriteLine);
+
 		private static void LogWriteLine(object toLog)
 		{
-			if(Global.m_AllowLogging)
-				lock(Global.m_StatusLog)
-					if(Global.m_StatusLog != null)
+			if (Global.m_AllowLogging)
+			{
+				if (Global.m_StatusLog.InvokeRequired)
+				{
+					object[] parms = { toLog };
+					Global.m_StatusLog.Invoke(uiDelegate, parms);
+				}
+				else
+				{
+					lock (Global.m_StatusLog)
 					{
-						Global.m_StatusLog.Items.Insert(0, toLog);
-						while(Global.m_StatusLog.Items.Count > 200)
-							Global.m_StatusLog.Items.RemoveAt(200);
+						if (Global.m_StatusLog != null)
+						{
+							Global.m_StatusLog.Items.Insert(0, toLog);
+							while (Global.m_StatusLog.Items.Count > 200)
+								Global.m_StatusLog.Items.RemoveAt(200);
+						}
 					}
+				}
+			}
 		}
 
 		public static void SetLog(System.Windows.Forms.ListBox toSet)
@@ -2012,6 +2064,8 @@ namespace NZB_O_Matic
 				}
 
 				Article article = new Article( Subject, Date, Poster, Groups, ImportFile);
+				article.ListViewControl = lvArticles;
+
 				article.Status = ArticleStatus.Loading;
 				foreach( System.Xml.XmlNode XmlSegment in XmlArticle.SelectNodes("segments/segment"))
 				{
@@ -2304,6 +2358,8 @@ namespace NZB_O_Matic
 					XmlAddElement(snode, "connections", serv.NoConnections.ToString());
 
 					XmlAddElement(snode, "needsgroup", serv.NeedsGroup.ToString());
+
+                    XmlAddElement(snode, "ssl", serv.UseSSL.ToString());
 
 					//add server to servers
 					servers.AppendChild(snode);
@@ -2621,12 +2677,12 @@ namespace NZB_O_Matic
 					if(m_ServerManager.m_ServerGroups.Count <= sv.Group)
 					{
 						ServerGroup sg = m_ServerManager.AddServerGroup();
-						sg.AddServer(new Server(sv.Host, sv.Port, sv.Connections, sv.Login, sv.User, sv.Password, sv.NeedsGroup));
+						sg.AddServer(new Server(sv.Host, sv.Port, sv.Connections, sv.Login, sv.User, sv.Password, sv.NeedsGroup, sv.UseSSL));
 						UpdateServers();
 					}
 					else
 					{
-						((ServerGroup)m_ServerManager.m_ServerGroups[sv.Group]).AddServer(new Server(sv.Host, sv.Port, sv.Connections, sv.Login, sv.User, sv.Password, sv.NeedsGroup));
+						((ServerGroup)m_ServerManager.m_ServerGroups[sv.Group]).AddServer(new Server(sv.Host, sv.Port, sv.Connections, sv.Login, sv.User, sv.Password, sv.NeedsGroup, sv.UseSSL));
 						UpdateServers();
 					}
 					

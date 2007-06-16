@@ -46,6 +46,10 @@ If, after turning off 'Needs Group', you get article errors, you may need to ena
 
 Version History
 ===============
+2007 Mar 27 - v.052 kdog
+	+ [Feature Request #1454] Added support for SSL servers 
+	* Fixed minor delegate bug with status updates
+
 2006 Sep 11 - v0.51 penndu/over
 	+ Modify the directories : the cache directory and the config files are now in %APPDATA%\nomp
 	  (until this exist) and the default download directory is in "my documents". It's because we

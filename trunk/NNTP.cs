@@ -17,13 +17,16 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Net.Security;
 using System.Text;
 using System.Collections;
+using System.Security.Authentication;
 
 namespace NZB_O_Matic
 {
 	public class NNTPClient : TcpClient
 	{
+
 		private string m_Group;
 		private int m_FirstMessage;
 		private int m_LastMessage;
@@ -37,6 +40,10 @@ namespace NZB_O_Matic
 		private int m_ArticlePointer = 0;
 		public enum Mode { MODE_READER, MODE_STREAM };
 		private enum ArticlePart { WHOLE, HEAD, BODY };
+
+        private string m_Hostname;
+        private Stream m_Stream;
+        private bool m_UseSSL = false;
 
 		/// <summary>
 		/// Is posting to the server allowed.
@@ -52,7 +59,7 @@ namespace NZB_O_Matic
 		/// <summary>
 		/// Is the underlying socket still connected?
 		/// </summary>
-		public bool Connected
+		public new bool Connected
 		{
 			get
 			{
@@ -109,13 +116,16 @@ namespace NZB_O_Matic
 		/// </summary>
 		/// <param name="hostname">Hostname of server.</param>
 		/// <param name="port">Port to connect to on server.</param>
-		public new void Connect( string hostname, int port)
+		public void Connect( string hostname, int port, bool ssl)
 		{
 			frmMain.LogWriteInfo("Connecting to (" + hostname + ":" + port + ")");
+            m_Hostname = hostname;
+            m_UseSSL = ssl;
 			base.Connect( hostname, port);
 			m_Connected = true;
 
-			NetworkStream s = GetStream();
+			Stream s = GetStream();
+
 			StreamReader r = new StreamReader( s);
 
 			string response;
@@ -147,7 +157,7 @@ namespace NZB_O_Matic
 		/// </summary>
 		public new void Close()
 		{
-			NetworkStream s = GetStream();
+			Stream s = GetStream();
 			StreamWriter w = new StreamWriter( s);
 			w.AutoFlush = true;
 
@@ -178,7 +188,7 @@ namespace NZB_O_Matic
 		{
 			string response;
 
-			NetworkStream s = GetStream();
+			Stream s = GetStream();
 			StreamWriter w = new StreamWriter( s);
 			StreamReader r = new StreamReader( s);
 
@@ -266,7 +276,7 @@ namespace NZB_O_Matic
 			
 			string response;
 
-			NetworkStream s = GetStream();
+			Stream s = GetStream();
 			StreamWriter w = new StreamWriter( s);
 			StreamReader r = new StreamReader( s);
 			w.AutoFlush = true;
@@ -452,7 +462,7 @@ namespace NZB_O_Matic
 		{
 			string response;
 
-			NetworkStream s = GetStream();
+			Stream s = GetStream();
 			StreamWriter w = new StreamWriter( s);
 			StreamReader r = new StreamReader( s, System.Text.Encoding.GetEncoding("iso-8859-1"));
 			w.AutoFlush = true;
@@ -531,7 +541,7 @@ namespace NZB_O_Matic
 		{
 			string response;
 
-			NetworkStream s = GetStream();
+			Stream s = GetStream();
 			StreamWriter w = new StreamWriter( s);
 			StreamReader r = new StreamReader( s);
 			w.AutoFlush = true;
@@ -576,7 +586,7 @@ namespace NZB_O_Matic
 			string response;
 			ArrayList groups = new ArrayList();
 
-			NetworkStream s = GetStream();
+			Stream s = GetStream();
 			StreamWriter w = new StreamWriter( s);
 			StreamReader r = new StreamReader( s);
 			w.AutoFlush = true;
@@ -667,7 +677,7 @@ namespace NZB_O_Matic
 			string response;
 			ArrayList groups = new ArrayList();
 
-			NetworkStream s = GetStream();
+			Stream s = GetStream();
 			StreamWriter w = new StreamWriter( s);
 			StreamReader r = new StreamReader( s);
 			w.AutoFlush = true;
@@ -682,5 +692,39 @@ namespace NZB_O_Matic
 			}
 			return false;
 		}
+
+        public new Stream GetStream()
+        {
+
+            if (m_Stream == null || !Connected)
+            {
+
+                if (! m_UseSSL)
+                {
+                    m_Stream = base.GetStream();
+                }
+                else
+                {
+
+                    SslStream s = new SslStream(base.GetStream(), true);
+
+                    try
+                    {
+                        s.AuthenticateAsClient(m_Hostname);
+                        m_Stream = s;
+
+                    }
+                    catch (AuthenticationException e)
+                    {
+                        Console.WriteLine("SSL Connection Failure: {0}", e.Message);
+                        Close();
+                        m_Stream = null;
+                    }
+
+                }
+            }
+
+            return m_Stream;
+        }
 	}
 }

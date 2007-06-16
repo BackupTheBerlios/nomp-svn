@@ -609,20 +609,29 @@ namespace NZB_O_Matic
 									
 									string outputdrive = outputdir.Substring(0,2);
 									long  size = article.Size;
-									foreach (ManagementObject disk in GetDriveInfo(outputdrive).Get())
-									{
-										if (size > Convert.ToInt64(disk[DiskProperties.FreeSpace.ToString()].ToString()))
-										{
-											frmMain.LogWriteError( "Unable to create file : no space on drive " + outputdrive);
-											input.Close();
-											input = null;
-											return DecodeStatus.FailedNothingToDecode;
-										}
-										else
-										{
-										output = new System.IO.FileStream( System.IO.Path.GetFullPath(outputdir) + "\\" + outputfile, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write, System.IO.FileShare.None, 1024*1024);
-										}
-									}
+									
+                                    ManagementObject disk = new ManagementObject("win32_logicaldisk.deviceid='" + outputdrive + "'");
+                                    try
+                                    {
+                                        if (size > Convert.ToInt64(disk[DiskProperties.FreeSpace.ToString()].ToString()))
+                                        {
+                                            frmMain.LogWriteError("Unable to create file : no space on drive " + outputdrive);
+                                            input.Close();
+                                            input = null;
+                                            return DecodeStatus.FailedNothingToDecode;
+                                        }
+                                        else
+                                        {
+                                            output = new System.IO.FileStream(System.IO.Path.GetFullPath(outputdir) + "\\" + outputfile, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write, System.IO.FileShare.None, 1024 * 1024);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        frmMain.LogWriteError("Unable to create file : " + ex.Message);
+                                        input.Close();
+                                        input = null;
+                                        return DecodeStatus.FailedNothingToDecode;
+                                    }
 									
 								}
 							}
@@ -661,20 +670,28 @@ namespace NZB_O_Matic
 
 							string outputdrive = outputdir.Substring(0,2);
 							long  size = article.Size;
-							foreach (ManagementObject disk in GetDriveInfo(outputdrive).Get())
-							{
-								if (size > Convert.ToInt64(disk[DiskProperties.FreeSpace.ToString()].ToString()))
-								{
-									frmMain.LogWriteError( "Unable to create file : no space on drive " + outputdrive);
-									input.Close();
-									input = null;
-									return DecodeStatus.FailedNothingToDecode;
-								}
-								else
-								{
-								output = new System.IO.FileStream( System.IO.Path.GetFullPath(outputdir) + "\\" + outputfile, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write, System.IO.FileShare.None, 1024*1024);
-								}
-							}
+                            ManagementObject disk = new ManagementObject("win32_logicaldisk.deviceid='" + outputdrive + "'");
+                            try
+                            {
+                                if (size > Convert.ToInt64(disk[DiskProperties.FreeSpace.ToString()].ToString()))
+                                {
+                                    frmMain.LogWriteError("Unable to create file : no space on drive " + outputdrive);
+                                    input.Close();
+                                    input = null;
+                                    return DecodeStatus.FailedNothingToDecode;
+                                }
+                                else
+                                {
+                                    output = new System.IO.FileStream(System.IO.Path.GetFullPath(outputdir) + "\\" + outputfile, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write, System.IO.FileShare.None, 1024 * 1024);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                frmMain.LogWriteError("Unable to create file : " + ex.Message);
+                                input.Close();
+                                input = null;
+                                return DecodeStatus.FailedNothingToDecode;
+                            }
 						}
 
 						if( line.StartsWith( "Content-Type: application/octet-stream;"))
@@ -715,8 +732,9 @@ namespace NZB_O_Matic
 								output = null;
 							}
 							string outputdrive = outputdir.Substring(0,2);
-							long  size = article.Size;
-							foreach (ManagementObject disk in GetDriveInfo(outputdrive).Get())
+							long  size = article.Size;                         
+                            ManagementObject disk = new ManagementObject("win32_logicaldisk.deviceid='" + outputdrive + "'");
+                            try
 							{
 								if (size > Convert.ToInt64(disk[DiskProperties.FreeSpace.ToString()].ToString()))
 								{
@@ -730,6 +748,12 @@ namespace NZB_O_Matic
 								output = new System.IO.FileStream( System.IO.Path.GetFullPath(outputdir) + "\\" + outputfile, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write, System.IO.FileShare.None, 1024*1024);
 								}
 							}
+                            catch( Exception ex ) {
+                                frmMain.LogWriteError( "Unable to create file : " + ex.Message);
+								input.Close();
+								input = null;
+								return DecodeStatus.FailedNothingToDecode;
+                            }
 						}
 					}
 

@@ -34,6 +34,7 @@ namespace NZB_O_Matic
 		private string m_Password;
 
 		private bool m_NeedsGroup;
+        private bool m_UseSSL;
 
 		private bool m_Connected;
 		private int m_NoConnections;
@@ -182,6 +183,18 @@ namespace NZB_O_Matic
 			}
 		}
 
+        public bool UseSSL
+        {
+            get
+            {
+                return m_UseSSL;
+            }
+            set
+            {
+                m_UseSSL = value;
+            }
+        }
+
 		/// <summary>
 		/// Gets/sets the download queue
 		/// </summary>
@@ -214,7 +227,7 @@ namespace NZB_O_Matic
 		/// <param name="requireslogin">Requires login</param>
 		/// <param name="username">If login is required, username</param>
 		/// <param name="password">If login is required, password</param>
-		public Server( string hostname, int port, int noconnections, bool requireslogin, string username, string password, bool needsgroup)
+		public Server( string hostname, int port, int noconnections, bool requireslogin, string username, string password, bool needsgroup, bool usessl)
 		{
 			m_Enabled = true;
 
@@ -226,6 +239,7 @@ namespace NZB_O_Matic
 			m_Password = password;
 
 			m_NeedsGroup = needsgroup;
+            m_UseSSL = usessl;
 
 			m_NoConnections = noconnections;
 			m_Connections = new ArrayList();
@@ -242,7 +256,7 @@ namespace NZB_O_Matic
 
 			for( int i = 0; i < noconnections; i ++)
 			{
-				Connection connection = new Connection(i+1, hostname, Port, RequiresLogin, Username, Password);
+				Connection connection = new Connection(i+1, hostname, Port, RequiresLogin, Username, Password, m_UseSSL);
 				connection.Server = this;
 				connection.OnFailedSegment += OnFailedSegmentHandler;
 				m_Connections.Add( connection);
@@ -278,6 +292,13 @@ namespace NZB_O_Matic
 			for(int i = 0; i < m_Password.Length; i++)
 				star += "*";
 			SetSubItem(6, star);
+
+            string ssl = "";
+            if (m_UseSSL)
+            {
+                ssl = "SSL";
+            }
+            SetSubItem(7, ssl);
 
 			lock(m_StatusItem)
 			{
