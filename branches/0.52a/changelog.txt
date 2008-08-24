@@ -46,6 +46,11 @@ If, after turning off 'Needs Group', you get article errors, you may need to ena
 
 Version History
 ===============
+
+2008 Aug - scubascythan  (Branched version, will update to a main version number after cumulative changes created)
+	* [Bug #11850] Fixed crash for Empty cache (Should be correct folder path, and will not throw exception if directory doesn't exist)
+	+ Par2 sorting
+
 2007 Mar 27 - v.052 kdog
 	+ [Feature Request #1454] Added support for SSL servers 
 	* Fixed minor delegate bug with status updates

@@ -178,7 +178,8 @@ namespace NZB_O_Matic
 		private System.Windows.Forms.MenuItem menuItem2;
 		private System.Windows.Forms.MenuItem Context_Prune;
         private ColumnHeader chSSL;
-        private Button Button_SortPar;
+        private MenuItem menuItem3;
+        private MenuItem Context_SortPar;
 		private ServerManager m_ServerManager;
 		#endregion 
 
@@ -329,6 +330,8 @@ namespace NZB_O_Matic
             this.Context_Delete = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.Context_Prune = new System.Windows.Forms.MenuItem();
+            this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.Context_SortPar = new System.Windows.Forms.MenuItem();
             this.Splitter_Lists = new System.Windows.Forms.Splitter();
             this.Save_Log = new System.Windows.Forms.SaveFileDialog();
             this.TabPage_Servers = new System.Windows.Forms.TabPage();
@@ -371,7 +374,6 @@ namespace NZB_O_Matic
             this.Button_ClearLog = new System.Windows.Forms.Button();
             this.Button_SaveLog = new System.Windows.Forms.Button();
             this.TabControl_Main = new System.Windows.Forms.TabControl();
-            this.Button_SortPar = new System.Windows.Forms.Button();
             this.Panel_Connections.SuspendLayout();
             this.TabPage_Servers.SuspendLayout();
             this.Panel_ServerButtons.SuspendLayout();
@@ -680,7 +682,9 @@ namespace NZB_O_Matic
             this.Context_Pause,
             this.Context_Delete,
             this.menuItem2,
-            this.Context_Prune});
+            this.Context_Prune,
+            this.menuItem3,
+            this.Context_SortPar});
             // 
             // Context_MoveUp
             // 
@@ -745,6 +749,17 @@ namespace NZB_O_Matic
             this.Context_Prune.Text = "Prune";
             this.Context_Prune.Click += new System.EventHandler(this.Context_Prune_Click);
             // 
+            // menuItem3
+            // 
+            this.menuItem3.Index = 11;
+            this.menuItem3.Text = "-";
+            // 
+            // Context_SortPar
+            // 
+            this.Context_SortPar.Index = 12;
+            this.Context_SortPar.Text = "Sort Par";
+            this.Context_SortPar.Click += new System.EventHandler(this.Context_SortPar_Click);
+            // 
             // Splitter_Lists
             // 
             this.Splitter_Lists.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -764,7 +779,7 @@ namespace NZB_O_Matic
             this.TabPage_Servers.Controls.Add(this.Panel_ServerButtons);
             this.TabPage_Servers.Location = new System.Drawing.Point(4, 22);
             this.TabPage_Servers.Name = "TabPage_Servers";
-            this.TabPage_Servers.Size = new System.Drawing.Size(534, 303);
+            this.TabPage_Servers.Size = new System.Drawing.Size(634, 303);
             this.TabPage_Servers.TabIndex = 0;
             this.TabPage_Servers.Text = "Usenet Servers";
             // 
@@ -786,7 +801,7 @@ namespace NZB_O_Matic
             this.lvServers.Location = new System.Drawing.Point(0, 32);
             this.lvServers.MultiSelect = false;
             this.lvServers.Name = "lvServers";
-            this.lvServers.Size = new System.Drawing.Size(534, 271);
+            this.lvServers.Size = new System.Drawing.Size(634, 271);
             this.lvServers.TabIndex = 3;
             this.lvServers.UseCompatibleStateImageBehavior = false;
             this.lvServers.View = System.Windows.Forms.View.Details;
@@ -843,7 +858,7 @@ namespace NZB_O_Matic
             this.Panel_ServerButtons.Dock = System.Windows.Forms.DockStyle.Top;
             this.Panel_ServerButtons.Location = new System.Drawing.Point(0, 0);
             this.Panel_ServerButtons.Name = "Panel_ServerButtons";
-            this.Panel_ServerButtons.Size = new System.Drawing.Size(534, 32);
+            this.Panel_ServerButtons.Size = new System.Drawing.Size(634, 32);
             this.Panel_ServerButtons.TabIndex = 2;
             // 
             // Button_Disconnect
@@ -973,7 +988,6 @@ namespace NZB_O_Matic
             // 
             // Panel_QueueButtons
             // 
-            this.Panel_QueueButtons.Controls.Add(this.Button_SortPar);
             this.Panel_QueueButtons.Controls.Add(this.ButtonDecodeIncomplete);
             this.Panel_QueueButtons.Controls.Add(this.setIncompleteToQueuedButton);
             this.Panel_QueueButtons.Controls.Add(this.Button_Bottom);
@@ -1101,7 +1115,7 @@ namespace NZB_O_Matic
             this.TabPage_Status.Controls.Add(this.Panel_LogButtons);
             this.TabPage_Status.Location = new System.Drawing.Point(4, 22);
             this.TabPage_Status.Name = "TabPage_Status";
-            this.TabPage_Status.Size = new System.Drawing.Size(534, 303);
+            this.TabPage_Status.Size = new System.Drawing.Size(634, 303);
             this.TabPage_Status.TabIndex = 2;
             this.TabPage_Status.Text = "Status Log";
             this.TabPage_Status.Visible = false;
@@ -1113,7 +1127,7 @@ namespace NZB_O_Matic
             this.List_StatusLog.Location = new System.Drawing.Point(0, 32);
             this.List_StatusLog.Name = "List_StatusLog";
             this.List_StatusLog.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.List_StatusLog.Size = new System.Drawing.Size(534, 271);
+            this.List_StatusLog.Size = new System.Drawing.Size(634, 271);
             this.List_StatusLog.TabIndex = 4;
             // 
             // Panel_LogButtons
@@ -1123,7 +1137,7 @@ namespace NZB_O_Matic
             this.Panel_LogButtons.Dock = System.Windows.Forms.DockStyle.Top;
             this.Panel_LogButtons.Location = new System.Drawing.Point(0, 0);
             this.Panel_LogButtons.Name = "Panel_LogButtons";
-            this.Panel_LogButtons.Size = new System.Drawing.Size(534, 32);
+            this.Panel_LogButtons.Size = new System.Drawing.Size(634, 32);
             this.Panel_LogButtons.TabIndex = 3;
             // 
             // Button_ClearLog
@@ -1164,18 +1178,6 @@ namespace NZB_O_Matic
             this.TabControl_Main.Size = new System.Drawing.Size(642, 329);
             this.TabControl_Main.TabIndex = 13;
             this.TabControl_Main.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
-            // 
-            // Button_SortPar
-            // 
-            this.Button_SortPar.BackColor = System.Drawing.SystemColors.Control;
-            this.Button_SortPar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Button_SortPar.Location = new System.Drawing.Point(533, 4);
-            this.Button_SortPar.Name = "Button_SortPar";
-            this.Button_SortPar.Size = new System.Drawing.Size(75, 23);
-            this.Button_SortPar.TabIndex = 11;
-            this.Button_SortPar.Text = "Sort Par2";
-            this.Button_SortPar.UseVisualStyleBackColor = false;
-            this.Button_SortPar.Click += new System.EventHandler(this.Button_SortPar_Click);
             // 
             // frmMain
             // 
@@ -3040,6 +3042,25 @@ namespace NZB_O_Matic
 				}
 			}
 		}
+
+        private void SortPar()
+        {
+            m_Sorted = "none";
+            lock (lvArticles)
+            {
+                ArrayList parList = m_ServerManager.GetParList();
+                m_ServerManager.MoveArticlesTop(parList);
+                foreach (Article article in parList)
+                {
+                    if (article.Status != ArticleStatus.Paused && article.Status != ArticleStatus.DecodeQueued && article.Status != ArticleStatus.Decoding && article.Status != ArticleStatus.Decoded)
+                    {
+                        article.Status = ArticleStatus.Paused;
+                    }
+                }
+            }
+            RebuildQueue();
+        }
+
 		#endregion
 
 		private void Context_Pause_Click_1(object sender, System.EventArgs e)
@@ -3059,22 +3080,10 @@ namespace NZB_O_Matic
 			DeleteQueueItems();
 		}
 
-        private void Button_SortPar_Click(object sender, EventArgs e)
+        private void Context_SortPar_Click(object sender, EventArgs e)
         {
-            m_Sorted = "none";
-            lock (lvArticles)
-            {
-                ArrayList parList = m_ServerManager.GetParList();
-                m_ServerManager.MoveArticlesTop(parList);
-                foreach ( Article article in parList )
-                {
-                    if( article.Status != ArticleStatus.Paused && article.Status != ArticleStatus.DecodeQueued && article.Status != ArticleStatus.Decoding && article.Status != ArticleStatus.Decoded)
-					{
-						article.Status = ArticleStatus.Paused;
-					}
-                }
-            }
-            RebuildQueue();
+            SortPar();
         }
+
 	}
 }
